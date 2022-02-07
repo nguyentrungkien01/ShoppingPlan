@@ -31,6 +31,7 @@ public class IntroController {
     @RequestMapping(path = "/sign-in")
     public String signIn(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
         if(authentication==null || authentication instanceof AnonymousAuthenticationToken)
             return "sign-in";
         return "redirect:/homepage";

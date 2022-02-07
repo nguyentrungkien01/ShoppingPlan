@@ -2,7 +2,7 @@
 <div class="main-header">
 	<!-- Logo Header -->
 	<div class="logo-header" data-background-color="dark2">
-		<a class="logo" href="">name</a>
+		<a class="logo" href="">Shopping Plan</a>
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
 			data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon">
