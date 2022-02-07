@@ -24,13 +24,12 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-    <link href="<c:url value = '/css/clinic.css' />" rel="stylesheet" />
+    <link href="<c:url value = '/css/base.css' />" rel="stylesheet" />
     <link href="<c:url value = '/css/custom.css' />" rel="stylesheet" />
 
     <!-- sweet alert -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
-        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <tiles:insertAttribute name="ref" />
 </head>
 
@@ -39,12 +38,14 @@
         <tiles:insertAttribute name="header" />
         <tiles:insertAttribute name="sidebar" />
         <div class="main-panel">
-            <div class="content" <tiles:insertAttribute name="content" />
-            <tiles:insertAttribute name="footer" />
+            <div class="content">
+                <tiles:insertAttribute name="content" />
+                <tiles:insertAttribute name="footer" />
+            </div>
         </div>
     </div>
     <!-- setting color - swich mode -->
-
+    <tiles:insertAttribute name="configuration-plugin" />
     </div>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- jQuery UI -->
@@ -52,8 +53,8 @@
     <script src="<c:url value ='/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js'/>"></script>
     <!-- jQuery Scrollbar -->
     <script src="<c:url value ='/plugin/jquery-scrollbar/jquery.scrollbar.min.js'/>"></script>
-    <script src="<c:url value = '/js/clinic.js' />"></script>
-    <script src="<c:url value = '/js/setting-demo.js' />"></script>
+    <script src="<c:url value = '/js/base.js' />"></script>
+    <script src="<c:url value = '/js/setting.js' />"></script>
 
 </body>
 

@@ -7,10 +7,10 @@
 		<div class="sidebar-content">
 			<ul class="nav nav-primary">
                 <li class="active nav-item">
-                    <a href="javascript:;"><p>Trang chủ</p></a>
+                    <a href="<c:url value ='/homepage'/>"><p>Trang chủ</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:;"><p>Quầy hàng</p></a>
+                    <a href="<c:url value ='/stall'/>"><p>Quầy hàng</p></a>
                 </li>
                 <li class="nav-item">
                     <a href="javascript:;"><p>Đường đi</p></a>

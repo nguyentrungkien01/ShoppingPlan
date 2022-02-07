@@ -5,14 +5,14 @@
 			<ul class="nav">
 				<li class="nav-item">
 					<a class="nav-link" href="javascript:;">
-						Quản lý Phòng khám tư nhân
+						Kế hoạch mua sắm
 					</a>
 				</li>
 			</ul>
 		</nav>
 		<div class="copyright ml-auto">
 			&copy; <a href="javascript:;">Trường Đại học Mở Tp.HCM</a>
-			- coded by <a href="javascript:;">Thành Nam - Trung Kiên</a>
+			- coded by <a href="javascript:;">Trung Kiên</a>
 		</div>
 	</div>
 </footer>
