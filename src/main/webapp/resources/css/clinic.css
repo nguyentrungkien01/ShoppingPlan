@@ -434,7 +434,6 @@ body {
 
 .logo-header .nav-toggle {
   position: absolute;
-  top: 0;
   right: 18px;
   z-index: 5;
 }
