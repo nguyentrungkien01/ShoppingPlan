@@ -12,7 +12,7 @@ public class TileConfig {
     public UrlBasedViewResolver viewResolver(){
         UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
         urlBasedViewResolver.setViewClass(TilesView.class);
-        urlBasedViewResolver.setOrder(-1);
+        urlBasedViewResolver.setOrder(-2);
         return urlBasedViewResolver;
     }
     @Bean
