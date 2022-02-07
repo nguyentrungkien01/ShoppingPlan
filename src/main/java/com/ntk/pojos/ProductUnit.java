@@ -2,12 +2,16 @@ package com.ntk.pojos;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name ="Product_Unit")
 public class ProductUnit implements Serializable {
     @EmbeddedId
     private ProductUnitId productUnitId;
+
+    @Column(name = "unit_price")
+    private BigDecimal unitPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id" , insertable=false, updatable=false)
@@ -39,5 +43,13 @@ public class ProductUnit implements Serializable {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }
