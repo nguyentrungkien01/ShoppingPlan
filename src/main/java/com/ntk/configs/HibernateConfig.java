@@ -20,6 +20,7 @@ import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 @Configuration
 @PropertySource("classpath:database.properties")
 public class HibernateConfig {
+
     @Autowired
     private Environment env;
 
