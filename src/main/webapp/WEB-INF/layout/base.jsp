@@ -14,6 +14,7 @@
 
            <!-- jQuery library -->
            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
            <!-- Popper JS -->
            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -21,21 +22,32 @@
            <!-- Latest compiled JavaScript -->
            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
             <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-            <link href="<c:url value = '/css/sidebar.css' />"  rel= "stylesheet"/>
-            <script src="<c:url value = '/js/sidebar.js' />"></script>
+            <link href="<c:url value = '/css/clinic.css' />"  rel= "stylesheet"/>
+            <link href="<c:url value = '/css/custom.css' />"  rel= "stylesheet"/>
+
 
        </head>
-        <body>
-        	<div class="wrapper d-flex align-items-stretch">
+        <body data-background-color="dark">
+         <div class="wrapper">
+                <tiles:insertAttribute name="header" />
                 <tiles:insertAttribute name = "sidebar"/>
-
-                     <!-- Page Content  -->
-                <div id="content" class="p-4 p-md-5 pt-5">
-                    <tiles:insertAttribute name="header" />
-                    <tiles:insertAttribute name="content" />
-                    <tiles:insertAttribute name="footer"/>
+                <div class="main-panel">
+                    <div class="content"
+                        <tiles:insertAttribute name="content" />
+                        <tiles:insertAttribute name="footer"/>
+                    </div>
                 </div>
+                <!-- setting color - swich mode -->
+
             </div>
-           
+                            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+                            <!-- jQuery UI -->
+                            <script src="<c:url value ='/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js'/>"></script>
+                            <script src="<c:url value ='/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js'/>"></script>
+                            <!-- jQuery Scrollbar -->
+                            <script src="<c:url value ='/plugin/jquery-scrollbar/jquery.scrollbar.min.js'/>"></script>
+              <script src="<c:url value = '/js/clinic.js' />"></script>
+              <script src="<c:url value = '/js/setting-demo.js' />"></script>
+
         </body>
 </html>
