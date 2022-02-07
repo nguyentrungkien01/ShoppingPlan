@@ -2,6 +2,7 @@ package com.ntk.pojos;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name ="Location")
@@ -16,6 +17,12 @@ public class Location implements Serializable {
 
     @Column(name = "longitude", length = 60, nullable = false)
     private String longitude;
+
+    @Column(name = "name", length = 100, nullable = false)
+    private String name;
+
+    @OneToMany(mappedBy = "location")
+    private Set<Stall> stalls;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -45,6 +52,23 @@ public class Location implements Serializable {
         this.longitude = longitude;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Stall> getStalls() {
+        return stalls;
+    }
+
+    public void setStalls(Set<Stall> stalls) {
+        this.stalls = stalls;
+    }
+
     public User getUser() {
         return user;
     }
@@ -52,5 +76,4 @@ public class Location implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
 }

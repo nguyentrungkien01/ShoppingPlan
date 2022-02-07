@@ -16,7 +16,7 @@ public class Account implements Serializable {
     @Column(name = "username",unique = true, length = 10, nullable = false)
     private String username;
 
-    @Column(name="password", length = 40, nullable = false)
+    @Column(name="password", length = 100, nullable = false)
     private String password;
 
     @Column(name = "date_created")
@@ -28,11 +28,16 @@ public class Account implements Serializable {
     @Column(name= "amount_report")
     private int amountReport;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account")
     private Set<AccountReport> accountReports;
 
     @OneToOne(mappedBy ="account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
+
+    @ManyToOne()
+    @JoinColumn(name = "role_id")
+    private Role role;
+
 
     public int getAccountId() {
         return accountId;
@@ -97,5 +102,14 @@ public class Account implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
 
 }

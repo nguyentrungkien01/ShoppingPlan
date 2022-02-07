@@ -18,12 +18,19 @@ public class Stall implements Serializable {
     @Column(name ="description")
     private String description;
 
+    @Column(name="image")
+    private String image;
+
+    @OneToMany(mappedBy = "stall", cascade = CascadeType.REMOVE)
+    private Set<StallProduct> stallProducts;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
+    private Location location;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(mappedBy = "stall")
-    private Set<StallProduct> stallProducts;
 
     public int getStallId() {
         return stallId;
@@ -49,19 +56,35 @@ public class Stall implements Serializable {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Set<StallProduct> getStallProducts() {
         return stallProducts;
     }
 
     public void setStallProducts(Set<StallProduct> stallProducts) {
         this.stallProducts = stallProducts;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

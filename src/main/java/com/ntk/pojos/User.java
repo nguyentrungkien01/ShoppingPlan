@@ -21,18 +21,24 @@ public class User implements Serializable {
     @Column(name="sex")
     private boolean sex;
 
+    @Column(name="id_card", length = 12, nullable = false, unique = true)
+    private String idCard;
+
+    @Column(name="facebook_link", length = 100)
+    private String facebookLink;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Stall> stalls;
 
     @OneToMany(mappedBy = "user")
     private Set<UserProduct> userProducts;
 
     @OneToMany(mappedBy = "user")
     private Set<PhoneNumber> phoneNumbers;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Stall> stalls;
 
     @OneToMany(mappedBy = "user")
     private Set<Location> locations;
@@ -61,7 +67,7 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public boolean isSex() {
+    public boolean getSex() {
         return sex;
     }
 
@@ -75,14 +81,6 @@ public class User implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public Set<Stall> getStalls() {
-        return stalls;
-    }
-
-    public void setStalls(Set<Stall> stalls) {
-        this.stalls = stalls;
     }
 
     public Set<UserProduct> getUserProducts() {
@@ -99,6 +97,30 @@ public class User implements Serializable {
 
     public void setPhoneNumbers(Set<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getFacebookLink() {
+        return facebookLink;
+    }
+
+    public void setFacebookLink(String facebookLink) {
+        this.facebookLink = facebookLink;
+    }
+
+    public Set<Stall> getStalls() {
+        return stalls;
+    }
+
+    public void setStalls(Set<Stall> stalls) {
+        this.stalls = stalls;
     }
 
     public Set<Location> getLocations() {

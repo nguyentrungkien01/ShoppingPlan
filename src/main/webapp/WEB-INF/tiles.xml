@@ -4,18 +4,88 @@
 
 <tiles-definitions>
     <definition name = "base" template="/WEB-INF/layout/base.jsp">
-            <put-attribute name="title" value=""/>
+            <put-attribute name="title" value="base"/>
+            <put-attribute name="ref" value="/WEB-INF/ref/base.jsp"/>
             <put-attribute name="header" value="/WEB-INF/layout/header.jsp"/>
             <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp"/>
             <put-attribute name="content" value="/WEB-INF/layout/content.jsp"/>
             <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
     </definition>
+
+    <!-- intro -->
+    <definition name="intro-page" extends="base">
+        <put-attribute name="title" value="Giới thiệu chung"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/intro/intro-feature.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/intro/intro-page-header.jsp"/>
+        <put-attribute name="sidebar" value="/WEB-INF/layout/blank.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/intro/intro-page-content.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/blank.jsp"/>
+    </definition>
+
+    <!-- sign in/up -->
+    <definition name="sign-base" extends="intro-page">
+        <put-attribute name="header" value="/WEB-INF/layout/blank.jsp"/>
+    </definition>
+    <definition name="sign-in" extends="sign-base">
+        <put-attribute name="title" value="Đăng nhập"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/account/sign-in.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/account/sign-in-feature.jsp"/>
+    </definition>
+    <definition name="sign-up" extends="sign-base">
+        <put-attribute name="title" value="Đăng ký"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/account/sign-up.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/account/sign-up-feature.jsp"/>
+    </definition>
+
+    <!-- homepage -->
     <definition name="homepage" extends="base">
+        <put-attribute name="title" value="Trang chủ"/>
     </definition>
-    <definition name = "info-account" extends="base">
+
+    <!--  stall -->
+    <definition name = "stall-feature" extends="base">
+        <put-attribute name="title" value="Quầy hàng"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/stall/stall-feature.jsp"/>
     </definition>
-    <definition name = "stall" extends="base">
+    <definition name = "stall-feature-control" extends="base">
+        <put-attribute name="content" value="/WEB-INF/jsp/stall/stall-feature-control.jsp"/>
     </definition>
-    <definition name="route" extends="base">
+    <definition name = "stall-feature-add" extends="stall-feature-control">
+        <put-attribute name="title" value="Thêm quầy hàng"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature-add.jsp"/>
+    </definition>
+    <definition name = "stall-feature-edit" extends="stall-feature-control">
+        <put-attribute name="title" value="Sửa quầy hàng"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature-edit.jsp"/>
+    </definition>
+    <definition name = "stall-feature-add-location" extends="base">
+        <put-attribute name="title" value="Thêm vị trí quầy hàng"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/stall/stall-feature-control-add-location.jsp"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature-add-location.jsp"/>
+    </definition>
+    <!--  stall detail-->
+    <definition name = "stall-feature-stall-detail" extends="base">
+        <put-attribute name="title" value="Chi tiết quầy hàng"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature-stall-detail.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/stall/stall-feature-stall-detail.jsp"/>
+    </definition>
+    <definition name = "stall-feature-stall-detail-control" extends="base">
+        <put-attribute name="content" value="/WEB-INF/jsp/stall/stall-feature-stall-detail-control.jsp"/>
+    </definition>
+    <definition name = "stall-feature-stall-detail-add" extends="stall-feature-stall-detail-control">
+        <put-attribute name="title" value="Thêm sản phẩm quầy hàng"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature-stall-detail-add.jsp"/>
+    </definition>
+    <definition name = "stall-feature-stall-detail-edit" extends="stall-feature-stall-detail-control">
+        <put-attribute name="title" value="Sửa sản phẩm quầy hàng"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/stall/stall-feature-stall-detail-edit.jsp"/>
+    </definition>
+
+    <!--    Plan-->
+    <definition name="plan-feature" extends="base">
+        <put-attribute name="title" value="Kế hoạch mua sắm"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/plan-feature.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/plan-feature.jsp"/>
     </definition>
 </tiles-definitions>
