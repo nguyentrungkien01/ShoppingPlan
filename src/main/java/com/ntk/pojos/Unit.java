@@ -16,9 +16,6 @@ public class Unit implements Serializable {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Column(name = "unit_price")
-    private BigDecimal unitPrice;
-
     @OneToMany(mappedBy = "unit")
     private Set<ProductUnit> productUnits;
 
@@ -38,13 +35,6 @@ public class Unit implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
 
     public Set<ProductUnit> getProductUnits() {
         return productUnits;

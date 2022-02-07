@@ -26,6 +26,7 @@
 
             <link href="<c:url value = '/css/sidebar.css' />"  rel= "stylesheet"/>
             <script src="<c:url value = '/js/sidebar.js' />"></script>
+
             <tiles:insertAttribute  name= "ref" />
 
        </head>
