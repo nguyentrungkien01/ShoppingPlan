@@ -67,7 +67,7 @@ public class StallServiceImpl implements StallService {
                 Unit unit = e1.getUnit();
                 JSONObject unitJsonObject = new JSONObject();
                 unitJsonObject.put("unitName", unit.getName());
-                unitJsonObject.put("unitPrice", unit.getUnitPrice());
+                unitJsonObject.put("unitPrice", e1.getUnitPrice());
                 unitJsonObjects.add(unitJsonObject);
             });
             productJsonObject.put("productUnits", unitJsonObjects);
