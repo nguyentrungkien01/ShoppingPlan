@@ -75,6 +75,7 @@ a {
 
 a:hover {
   color: #1269DB;
+  text-decoration: none;
 }
 
 h1,
@@ -4243,6 +4244,10 @@ label {
   border-top: transparent !important;
 }
 
+.card-img-bdras {
+  border-radius: 5px;
+}
+
 .card-default {
   background: #1a2035 !important;
 }
@@ -6004,6 +6009,7 @@ label {
 .form-control[readonly] {
   background: #e8e8e8 !important;
   border-color: #e8e8e8 !important;
+  color: #7a7a7a !important;
 }
 
 .form-control:disabled,
@@ -12484,7 +12490,6 @@ body[data-background-color="dark"] .board {
   min-height: 100vh;
 }
 
-.auth-wrapper a,
 .auth-wrapper p>a {
   font-weight: 600;
 }
@@ -13706,6 +13711,7 @@ body .main-panel .modal-content .modal-body input:focus {
   border: 0;
 }
 
+
 /* Offline registration, payments */
 @media (min-width: 576px) {
 
@@ -13713,4 +13719,21 @@ body .main-panel .modal-content .modal-body input:focus {
   #search_result .modal-dialog {
     max-width: 500px !important;
   }
+}
+
+/* Custom */
+.td-img img {
+  width: 200px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.td-icon i {
+  background: #cccccc;
+  border-radius: 5px;
+  color: #1a2035;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
 }

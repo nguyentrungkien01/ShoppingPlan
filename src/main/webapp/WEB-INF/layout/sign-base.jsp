@@ -28,20 +28,15 @@
     <link href="<c:url value = '/css/custom.css' />" rel="stylesheet" />
     <link rel="stylesheet" href="<c:url value = '/plugin/cursor/cursor.css' />" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.0/dist/sweetalert2.min.css">
+    <!-- sweet alert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <tiles:insertAttribute name="ref" />
 </head>
 
 <body data-background-color="dark">
     <div class="wrapper">
-        <tiles:insertAttribute name="header" />
-        <tiles:insertAttribute name="sidebar" />
-        <div class="main-panel">
-            <div class="content">
-                <tiles:insertAttribute name="content" />
-                <tiles:insertAttribute name="footer" />
-            </div>
-        </div>
+        <tiles:insertAttribute name="content" />
     </div>
     <!-- setting color - swich mode -->
     <tiles:insertAttribute name="configuration-plugin" />
@@ -52,8 +47,6 @@
     <script src="<c:url value ='/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js'/>"></script>
     <!-- jQuery Scrollbar -->
     <script src="<c:url value ='/plugin/jquery-scrollbar/jquery.scrollbar.min.js'/>"></script>
-    <!-- sweet alert -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<c:url value = '/js/base.js' />"></script>
     <script src="<c:url value = '/js/setting.js' />"></script>
     <script src="<c:url value = '/plugin/cursor/cursor.js' />"></script>

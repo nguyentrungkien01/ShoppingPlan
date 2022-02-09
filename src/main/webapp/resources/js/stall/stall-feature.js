@@ -169,16 +169,22 @@ function setStallInfo(datas){
             image ="https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466243/stall/default_upj3uc.jpg"
         var stallId = window.btoa(datas[i]['stallId'].toString())
          row +=`
-            <div class="card col-md-3">
-               <img class="card-img-top" src=${image}
-               alt="Card image">
-               <div class="card-body">
-                 <h4 class="card-title">${datas[i]["stallName"]} <span class="badge badge-danger">${datas[i]["stallProductListAmount"]}</span></h4>
-                 <p class="card-footer">${description}</p>
-                 <a href="/ShoppingPlan/stall/detail/?stallId=${stallId}" class="btn btn-primary" >Xem chi tiết</a>
-                  <a href="/ShoppingPlan/stall/edit/?stallId=${stallId}" class="btn btn-warning" >Sửa</a>
-                  <a href="javascript:;" class="btn btn-danger" onclick="deleteStall('${stallId}')">Xóa</a>
-               </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <img class="card-img card-img-bdras" src=${image} alt="Card image">
+                        <div class="card-title">
+                            <h4 class="mt-3">${datas[i]["stallName"]} <span
+                                    class="badge badge-danger">${datas[i]["stallProductListAmount"]}</span></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">${description}</div>
+                    <div class="card-footer">
+                        <a href="/ShoppingPlan/stall/detail/?stallId=${stallId}" class="btn btn-primary mb-2">Xem chi tiết</a>
+                        <a href="/ShoppingPlan/stall/edit/?stallId=${stallId}" class="btn btn-warning mb-2">Sửa</a>
+                        <a href="javascript:;" class="btn btn-danger mb-2" onclick="deleteStall('${stallId}')">Xóa</a>
+                    </div>
+                </div>
             </div>
         `
         }
