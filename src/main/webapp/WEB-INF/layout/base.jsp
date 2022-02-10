@@ -26,7 +26,7 @@
 
     <link href="<c:url value = '/css/base.css' />" rel="stylesheet" />
     <link href="<c:url value = '/css/custom.css' />" rel="stylesheet" />
-
+    <link href="<c:url value = '/css/switch-button.css' />" rel="stylesheet" />
     <!-- sweet alert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -55,7 +55,7 @@
     <script src="<c:url value ='/plugin/jquery-scrollbar/jquery.scrollbar.min.js'/>"></script>
     <script src="<c:url value = '/js/base.js' />"></script>
     <script src="<c:url value = '/js/setting.js' />"></script>
-
+    <script src="<c:url value = '/js/sidebar.js' />"></script>
 </body>
 
 </html>

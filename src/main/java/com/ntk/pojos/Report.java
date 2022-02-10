@@ -12,7 +12,7 @@ public class Report implements Serializable {
     @Column(name ="report_id")
     private int reportId;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false, columnDefinition = "nvarchar")
     private String name;
 
     @OneToMany(mappedBy = "report")

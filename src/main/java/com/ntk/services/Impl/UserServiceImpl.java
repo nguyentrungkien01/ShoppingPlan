@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User getUserObj(int userId, String... params) {
         return userRepository.getUser(userId, params);
     }

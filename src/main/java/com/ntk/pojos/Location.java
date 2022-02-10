@@ -18,7 +18,7 @@ public class Location implements Serializable {
     @Column(name = "longitude", length = 60, nullable = false)
     private String longitude;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false, columnDefinition = "nvarchar")
     private String name;
 
     @OneToMany(mappedBy = "location")

@@ -12,7 +12,7 @@ public class Role implements Serializable {
     @Column(name = "role_id")
     private int roleId;
 
-    @Column(name="name", length = 10,nullable = false, unique = true)
+    @Column(name="name", length = 10,nullable = false, unique = true, columnDefinition = "nvarchar")
     private String name;
 
     @OneToMany(mappedBy = "role")

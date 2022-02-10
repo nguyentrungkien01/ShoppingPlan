@@ -27,44 +27,43 @@ function getStallAmount(){
      })
 }
 
-function deleteStall(stallId){
+function deleteStall(stallId) {
     swal({
         title: "Xác nhận xóa",
         text: "Bạn có chắc chắn muốn xóa quầy hàng này? \n Mọi thông tin liên quan quầy hàng này sẽ bị xóa theo!",
         icon: "warning",
         dangerMode: true,
     }).then(confirmDelete => {
-            if (confirmDelete){
-                fetch("/ShoppingPlan/stall/api/deleteStall", {
-                    method: "post",
-                    body:JSON.stringify({
-                        "stallId":stallId.toString(),
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }) .then(res=>res.json()).then(datas => {
-                    console.info(datas)
-                    if(datas["result"]){
-                        swal(
-                            'Xóa quầy hàng thành công',
-                            'Chúc mừng bạn đã xóa quầy hàng thành công!',
-                            'success'
-                        ).then(() => {
-                            initData()
-                        })
+        if (confirmDelete) {
+            fetch("/ShoppingPlan/stall/api/deleteStall", {
+                method: "post",
+                body: JSON.stringify({
+                    "stallId": stallId.toString(),
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json()).then(datas => {
+                if (datas["result"]) {
+                    swal(
+                        'Xóa quầy hàng thành công',
+                        'Chúc mừng bạn đã xóa quầy hàng thành công!',
+                        'success'
+                    ).then(() => {
+                        initData()
+                    })
 
-                    }else{
-                        swal(
-                            'Xóa quầy hàng thất bại',
-                            'Đã có lỗi xảy ra trong quá trình xóa, vui lòng thử lại sau!',
-                            'fail'
-                        )
-                    }
+                } else {
+                    swal(
+                        'Xóa quầy hàng thất bại',
+                        'Đã có lỗi xảy ra trong quá trình xóa, vui lòng thử lại sau!',
+                        'fail'
+                    )
+                }
 
-                })
-            }
-        });
+            })
+        }
+    });
 
 }
 

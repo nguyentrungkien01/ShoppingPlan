@@ -4,15 +4,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 public class UtilsController {
-    public static String parseUTF8(String item) {
-        byte[] bytes = item.getBytes(StandardCharsets.ISO_8859_1);
-        return new String(bytes, StandardCharsets.UTF_8);
-
-    }
     public static String getCurrentUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : principal.toString();
@@ -22,5 +19,16 @@ public class UtilsController {
     }
     public static String encodeBase64(String str){
         return Base64.getEncoder().encodeToString(str.getBytes());
+    }
+
+    public static List<List<String>> splitStr(String str, String... sep){
+        if(sep.length>=2) {
+            List<List<String>> result = new ArrayList<>();
+            Arrays.stream( str.split(sep[0])).toList().forEach(e-> result.add(
+                    Arrays.stream(e.split(sep[1])).toList()));
+
+            return result;
+        }
+        return null;
     }
 }

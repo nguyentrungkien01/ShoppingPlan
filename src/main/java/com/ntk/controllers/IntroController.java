@@ -10,10 +10,10 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 @Controller
 public class IntroController {
@@ -44,25 +44,26 @@ public class IntroController {
 
 
     @RequestMapping(path = "/sign-up", method = RequestMethod.POST)
-    public String signUpData( Model model, HttpServletRequest httpServletRequest){
-        String username = UtilsController.parseUTF8(httpServletRequest.getParameter("username"));
+    public String signUpData(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
+        httpServletRequest.setCharacterEncoding("UTF-8");
+        String username = httpServletRequest.getParameter("username");
         if(accountService.getAccount(username)!=null)
             return String.format("redirect:/sign-up/?error=%s",UtilsController.encodeBase64("existUsername"));
 
-        String password = UtilsController.parseUTF8(httpServletRequest.getParameter("password"));
-        String confirmPassword  = UtilsController.parseUTF8(httpServletRequest.getParameter("password"));
+        String password = httpServletRequest.getParameter("password");
+        String confirmPassword  =httpServletRequest.getParameter("password");
 
         if(!password.equals(confirmPassword))
             return String.format("redirect:/sign-up/?error=%s",UtilsController.encodeBase64("notMatchPassword"));
 
-        String lastName = UtilsController.parseUTF8(httpServletRequest.getParameter("lastName"));
-        String firstName= UtilsController.parseUTF8(httpServletRequest.getParameter("firstName"));
-        String sex = UtilsController.parseUTF8(httpServletRequest.getParameter("sex"));
-        String idCard = UtilsController.parseUTF8(httpServletRequest.getParameter("idCard"));
+        String lastName = httpServletRequest.getParameter("lastName");
+        String firstName= httpServletRequest.getParameter("firstName");
+        String sex = httpServletRequest.getParameter("sex");
+        String idCard = httpServletRequest.getParameter("idCard");
         if(userService.getUser(idCard)!=null)
             return String.format("redirect:/sign-up/?error=%s",UtilsController.encodeBase64("existIdCard"));
 
-        String facebookLink = UtilsController.parseUTF8(httpServletRequest.getParameter("facebookLink"));
+        String facebookLink =httpServletRequest.getParameter("facebookLink");
         Role role = accountService.getRole("client");
         Account account = new Account();
         account.setUsername(username);

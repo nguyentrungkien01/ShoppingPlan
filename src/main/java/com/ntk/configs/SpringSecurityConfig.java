@@ -39,7 +39,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutUrl("/sign-out").logoutSuccessUrl("/sign-in");
         http.exceptionHandling().accessDeniedPage("/sign-in?accessDenied");
         http.authorizeRequests().antMatchers("/homepage/**",
-                "/stall/**").hasAuthority("client");
+                "/stall/**", "/plan/**").hasAuthority("client");
         http.csrf().disable();
     }
 

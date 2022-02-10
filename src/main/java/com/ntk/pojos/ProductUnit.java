@@ -52,4 +52,5 @@ public class ProductUnit implements Serializable {
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
+
 }
