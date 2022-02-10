@@ -37,9 +37,6 @@ public class StallFeatureDetailController {
     private Cloudinary cloudinary;
 
     @Autowired
-    private StallProductService stallProductService;
-
-    @Autowired
     private ProductService productService;
 
     @Autowired
@@ -95,14 +92,9 @@ public class StallFeatureDetailController {
         else
            product.setImage(null);
         product.setCategory(categoryService.getCategory(categoryId));
+        product.setStall(stall);
         boolean result=productService.addProduct(product);
         if(result) {
-            StallProduct stallProduct = new StallProduct();
-            StallProductId stallProductId = new StallProductId();
-            stallProductId.setStallId(stall.getStallId());
-            stallProductId.setProductId(product.getProductId());
-            stallProduct.setStallProductId(stallProductId);
-            stallProductService.addStallProduct(stallProduct);
             Objects.requireNonNull(units).forEach(e -> {
                 int unitId = Integer.parseInt(UtilsController.decodeBase64(e.get(0)));
                 BigDecimal unitPrice = new BigDecimal(e.get(1));

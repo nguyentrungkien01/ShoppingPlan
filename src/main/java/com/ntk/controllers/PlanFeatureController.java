@@ -28,8 +28,19 @@ public class PlanFeatureController {
     public ResponseEntity<List<JSONObject>> getHint(
             @RequestBody Map<String, String> params){
         String keyword = params.get("keyword");
-        List<JSONObject> jsonObjects  = productService.getProducts(keyword);
         return new ResponseEntity<>(
-                jsonObjects, HttpStatus.OK);
+                productService.getProductNames(keyword), HttpStatus.OK);
+    }
+
+    @PostMapping("/plan/api/searchResult")
+    public ResponseEntity<List<JSONObject>> getSearchResult(
+            @RequestBody Map<String, String> params){
+        String keyword = params.get("keyword");
+        int offSet = Integer.parseInt(params.get("offSet"));
+        int limit = Integer.parseInt(params.get("limit"));
+        return new ResponseEntity<>(
+                productService.getProductDetails(
+                        keyword,offSet, limit,"category","stall","productUnits"),
+                HttpStatus.OK);
     }
 }

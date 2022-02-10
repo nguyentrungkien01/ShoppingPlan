@@ -11,14 +11,33 @@ function getProductNameHint(data) {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json()).then(datas => setHintData(datas))
+
 }
+
+function getSearchResult(data,  offset, limit) {
+    fetch('/ShoppingPlan/plan/api/searchResult', {
+        method: 'post',
+        body: JSON.stringify({
+            'keyword': data.toString(),
+            'limit': limit.toString(),
+            'offSet': offset.toString()
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json()).then(datas => {
+        console.info(datas)
+        setSearchResult(datas)
+    })
+}
+
+//hint
 function setHintData(datas){
     if (datas.length > 0)
         gIndexHintProductName = 1
     let row = '';
     for (let i = 0; i < datas.length; i++)
-        row += `<p id = "${datas[i]['productId']}" 
-            onclick = "onClickHint('${datas[i]['productName']}')"
+        row += `<p onclick = "onClickHint('${datas[i]['productName']}')"
             onmouseover="onMouseOverHint(${i + 1})">${datas[i]['productName']}</p>`
     $('#hint').html(row)
 }
@@ -35,12 +54,62 @@ function onMouseOverHint(position) {
     $(`.show-hint p:nth-child(${position})`).css("background-color", "#04a9f5");
 }
 
-$(document).ready(function(){
-    $('#name').change(function(){
-       getProductNameHint($(this).val())
+// search result
+function setSearchResult(datas){
+    var searchResult= ''
+    for(let i=0; i<datas.length; i++){
+        var product = datas[i]['product']
+        var category= datas[i]['category']
+        var stall = datas[i]['stall']
+        var location = datas[i]['location']
+        var user = datas[i]['user']
+        var units = datas[i]['units']
+        var productImage = product['productImage']
+        if(productImage==null || productImage.length<=0)
+            productImage= "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466396/product/default_ss6fj9.jpg"
+
+        searchResult+=`
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                          <h1>${product['productName']}</h1>
+                          <p>Loại hàng: ${category['categoryName']}</p>
+                          <p>Địa chỉ: ${location['locationName']}</p>
+                        </div>
+                        <div class="col">
+                            <img src="${productImage}" style="width: 100px; height: 100px">
+                        </div>
+                    </div>
+                  <div id="product_${product['productId']}"></div>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-success"
+                            onclick="showDetail('product_${product['productId']}', ${datas[i]})">
+                            Xem chi tiết</button>
+                    <button type="button" class="btn btn-outline-success" 
+                            onclick="addChoice(${product})">Chọn</button>
+
+                </div>
+            </div>
+        `
+    }
+    $('#dataResult').html(searchResult)
+}
+function addChoice(product){
+    alert("choice")
+}
+
+function showDetail(detailId, product){
+    alert("detail")
+}
+
+$(document).ready(function() {
+    // hint
+    $('#name').change(function () {
+        getProductNameHint($(this).val())
     })
 
-    // id card input
     $('#hint').hide()
 
     $('#name').on('input', function () {
@@ -76,5 +145,17 @@ $(document).ready(function(){
                 gIndexHintProductName = $('#hint').children().length
             $(`.show-hint p:nth-child(${gIndexHintProductName})`).css("background-color", "#04a9f5");
         }
+    })
+
+    //search
+    $('#search').click(function () {
+        $('#hint').hide()
+        if ($('#name').val().length > 0)
+            getSearchResult($('#name').val(), 0, 10)
+    })
+
+    //reset
+    $('#reset').click(function () {
+        location.reload();
     })
 })

@@ -10,4 +10,5 @@ public interface ProductRepository {
     boolean updateProduct(Product product);
     Product getProduct(int productId, String... params);
     List<Product> getProducts(String productName, String... params);
+    List<Product> getProducts(String productName, int offset, int limit, String... params);
 }
