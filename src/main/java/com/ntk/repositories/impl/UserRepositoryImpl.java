@@ -8,10 +8,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,8 +47,14 @@ public class UserRepositoryImpl implements UserRepository {
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
-        if(params.length>0 && params[0].equals("locations"))
-            root.fetch(params[0]);
+        if(params!=null && params.length>0)
+            Arrays.stream(params).forEach(e -> {
+                if (Objects.equals(e, "locations") ||
+                        Objects.equals(e, "stalls") ||
+                        Objects.equals(e, "phoneNumbers") ||
+                        Objects.equals(e, "userProducts"))
+                    root.fetch(e);
+            });
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.equal(root.get("userId").as(Integer.class), userId);
         List<User> users = s.createQuery(criteriaQuery.where(p)).getResultList();

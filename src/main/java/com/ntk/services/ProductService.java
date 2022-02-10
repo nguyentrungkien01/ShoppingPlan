@@ -11,5 +11,6 @@ public interface ProductService {
     boolean updateProduct(Product product);
     Product getProduct(int productId);
     JSONObject getProductDetail(int productId, String...params);
-    List<JSONObject> getProducts(String productName, String... params);
+    List<JSONObject> getProductNames(String productName, String... params);
+    List<JSONObject> getProductDetails(String productName, int offset, int limit, String... params);
 }

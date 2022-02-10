@@ -2,8 +2,9 @@ package com.ntk.services.Impl;
 
 import com.ntk.controllers.UtilsController;
 import com.ntk.pojos.*;
+import com.ntk.repositories.ProductRepository;
 import com.ntk.repositories.StallRepository;
-import com.ntk.services.StallProductService;
+import com.ntk.services.ProductService;
 import com.ntk.services.StallService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class StallServiceImpl implements StallService {
     private StallRepository stallRepository;
 
     @Autowired
-    private StallProductService stallProductService;
+    private ProductService productService;
 
     @Override
     @Transactional
@@ -128,10 +129,10 @@ public class StallServiceImpl implements StallService {
     @Override
     @Transactional
     public boolean deleteStall(Stall stall) {
-        Set<StallProduct> stallProductSet = stall.getStallProducts();
+        Set<Product> products = stall.getProducts();
 
-        if (!stallProductSet.isEmpty())
-            stallProductSet.forEach(e -> stallProductService.deleteStallProduct(e));
+        if (!products.isEmpty())
+            products.forEach(e -> productService.deleteProduct(e.getProductId()));
 
         return stallRepository.deleteStall(stall);
     }

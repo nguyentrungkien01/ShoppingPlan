@@ -8,10 +8,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -54,6 +51,17 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
     }
 
+    private void fetchProductInfor(Root<Product> root, String ... params){
+        Arrays.stream(params).forEach(e -> {
+            if (Objects.equals(e, "category") ||
+                    Objects.equals(e, "stall") ||
+                    Objects.equals(e, "productUnits"))
+                root.fetch(e);
+            if(Objects.equals(e, "userProducts"))
+                root.fetch(e, JoinType.LEFT);
+        });
+    }
+
     @Override
     public Product getProduct(int productId, String... params) {
         Session s = Objects.requireNonNull(localSessionFactoryBean.getObject()).getCurrentSession();
@@ -61,16 +69,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = criteriaQuery.from(Product.class);
         if (params != null && params.length > 0)
-            Arrays.stream(params).forEach(e -> {
-                if (Objects.equals(e, "category"))
-                    root.fetch("category");
-                if (Objects.equals(e, "stallProducts"))
-                    root.fetch("stallProducts");
-                if (Objects.equals(e, "userProducts"))
-                    root.fetch("userProducts");
-                if (Objects.equals(e, "productUnits"))
-                    root.fetch("productUnits");
-            });
+            fetchProductInfor(root, params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.equal(root.get("productId").as(Integer.class), productId);
         List<Product> products = s.createQuery(criteriaQuery.where(p)).getResultList();
@@ -86,20 +85,27 @@ public class ProductRepositoryImpl implements ProductRepository {
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = criteriaQuery.from(Product.class);
         if (params != null && params.length > 0)
-            Arrays.stream(params).forEach(e -> {
-                if (Objects.equals(e, "category"))
-                    root.fetch("category");
-                if (Objects.equals(e, "stallProducts"))
-                    root.fetch("stallProducts");
-                if (Objects.equals(e, "userProducts"))
-                    root.fetch("userProducts");
-                if (Objects.equals(e, "productUnits"))
-                    root.fetch("productUnits");
-            });
+            fetchProductInfor(root, params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.like(root.get("name").as(String.class),
                 String.format("%s%%", productName));
         return s.createQuery(criteriaQuery.where(p)
                 .orderBy(criteriaBuilder.asc(root.get("name")))).getResultList();
+    }
+
+    @Override
+    public List<Product> getProducts(String productName, int offset, int limit, String... params) {
+        Session s = Objects.requireNonNull(localSessionFactoryBean.getObject()).getCurrentSession();
+        CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        if (params != null && params.length > 0)
+            fetchProductInfor(root, params);
+        criteriaQuery.select(root);
+        Predicate p = criteriaBuilder.like(root.get("name").as(String.class),
+                String.format("%s%%", productName));
+        return s.createQuery(criteriaQuery.where(p)
+                .orderBy(criteriaBuilder.asc(root.get("name"))))
+                .setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }

@@ -22,8 +22,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
-    private Set<StallProduct> stallProducts;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="stall_id")
+    private Stall stall;
 
     @OneToMany(mappedBy = "product")
     private Set<UserProduct> userProducts;
@@ -56,14 +57,6 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Set<StallProduct> getStallProducts() {
-        return stallProducts;
-    }
-
-    public void setStallProducts(Set<StallProduct> stallProducts) {
-        this.stallProducts = stallProducts;
-    }
-
     public Set<UserProduct> getUserProducts() {
         return userProducts;
     }
@@ -86,5 +79,13 @@ public class Product implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Stall getStall() {
+        return stall;
+    }
+
+    public void setStall(Stall stall) {
+        this.stall = stall;
     }
 }

@@ -191,7 +191,7 @@ public class StallFeatureController {
         String stallId = UtilsController.decodeBase64(params.get("stallId"));
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", stallService.deleteStall(
-                stallService.getStall(Integer.parseInt(stallId), "stallProducts")));
+                stallService.getStall(Integer.parseInt(stallId), "products")));
         return new ResponseEntity<>(jsonObject, HttpStatus.OK);
     }
 }

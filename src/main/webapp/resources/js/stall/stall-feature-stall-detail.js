@@ -65,7 +65,7 @@ function deleteProduct(productId) {
                     swal(
                         'Xóa sản phẩm thất bại',
                         'Đã có lỗi xảy ra trong quá trình xóa, vui lòng thử lại sau!',
-                        'fail'
+                        'error'
                     )
                 }
             })
@@ -173,7 +173,7 @@ function setProductListInfo(datas){
             <tr>
                 <td class="td-icon">
                     <a href= "/ShoppingPlan/stall/detail/edit/?stallId=${stallId}&productId=${productInfos["productId"]}"><i class="fa fa-pencil"></i></a>
-                    <a href= "javascript:;"onclick="deleteProduct('${productInfos["productId"]}')"><i class="fa fa-trash"></i></a>
+                    <a href= "javascript:;" onclick="deleteProduct('${productInfos["productId"]}')"><i class="fa fa-trash"></i></a>
                 </td>
                 <td scope="row">${productInfos["productId"]}</th>
                 <td>${productInfos["productName"]}</td>

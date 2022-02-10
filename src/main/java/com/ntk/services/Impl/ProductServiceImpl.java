@@ -1,12 +1,8 @@
 package com.ntk.services.Impl;
 
 import com.ntk.controllers.UtilsController;
-import com.ntk.pojos.Product;
-import com.ntk.pojos.ProductUnit;
-import com.ntk.repositories.ProductRepository;
-import com.ntk.repositories.ProductUnitRepository;
-import com.ntk.repositories.StallProductRepository;
-import com.ntk.repositories.UserProductRepository;
+import com.ntk.pojos.*;
+import com.ntk.repositories.*;
 import com.ntk.services.ProductService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +21,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductUnitRepository productUnitRepository;
 
     @Autowired
-    private StallProductRepository stallProductRepository;
+    private UserProductRepository userProductRepository;
 
     @Autowired
-    private UserProductRepository userProductRepository;
+    private StallRepository stallRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     @Transactional
@@ -39,10 +38,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public boolean deleteProduct(int productId) {
-        Product product = productRepository.getProduct(productId, "userProducts","stallProducts","productUnits");
+        Product product = productRepository.getProduct(productId, "userProducts","productUnits");
         if(product==null)
             return false;
-        product.getStallProducts().forEach(e->stallProductRepository.deleteStallProduct(e));
         product.getProductUnits().forEach(e->productUnitRepository.deleteProductUnit(e));
         product.getUserProducts().forEach(e->userProductRepository.deleteUserProduct(e));
         return productRepository.deleteProduct(product);
@@ -87,15 +85,84 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<JSONObject> getProducts(String productName, String... params) {
+    public List<JSONObject> getProductNames(String productName, String... params) {
         List<Product> products = productRepository.getProducts(productName, params);
         List<JSONObject> jsonObjects = new ArrayList<>();
         products.forEach(e->{
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("productId",
-                    UtilsController.encodeBase64(String.valueOf(e.getProductId())));
             jsonObject.put("productName", e.getName());
             jsonObjects.add(jsonObject);
+        });
+        return jsonObjects;
+    }
+
+    @Override
+    @Transactional
+    public List<JSONObject> getProductDetails(String productName, int offset, int limit, String... params) {
+        List<Product> products = productRepository.getProducts(productName,offset, limit, params);
+        List<JSONObject> jsonObjects = new ArrayList<>();
+        products.forEach(e->{
+            //product
+            JSONObject productJsonObject = new JSONObject();
+            productJsonObject.put("productId", UtilsController.encodeBase64(String.valueOf(e.getProductId())));
+            productJsonObject.put("productName", e.getName());
+            productJsonObject.put("productImage", e.getImage());
+
+            //category
+            JSONObject cateJsonObject = new JSONObject();
+            cateJsonObject.put("categoryName", e.getCategory().getName());
+
+            //stall
+            Stall stall =  stallRepository.getStall(e.getStall().getStallId(), "location", "user");
+            JSONObject stallJsonObject = new JSONObject();
+            stallJsonObject.put("stallName", stall.getName());
+            stallJsonObject.put("stallImage", stall.getImage());
+            stallJsonObject.put("stallDescription",stall.getDescription());
+
+            //location
+            Location location = stall.getLocation();
+            JSONObject locaJsonObject = new JSONObject();
+            locaJsonObject.put("locationName", location.getName());
+            locaJsonObject.put("locationLongitude", location.getLongitude());
+            locaJsonObject.put("locationLatitude", location.getLatitude());
+
+            //user
+            User user = userRepository.getUser(stall.getUser().getUserId(), "phoneNumbers");
+            JSONObject userJsonObject = new JSONObject();
+            userJsonObject.put("userFirstName", user.getFirstName());
+            userJsonObject.put("userLastName", user.getLastName());
+            userJsonObject.put("userFacebookLink", user.getFacebookLink());
+            List<JSONObject> phoneNumbers = new ArrayList<>();
+            user.getPhoneNumbers().forEach(e1->{
+                JSONObject phoneNumber= new JSONObject();
+                phoneNumber.put("name", e1.getPhoneNumber());
+                phoneNumbers.add(phoneNumber);
+            });
+            userJsonObject.put("phoneNumbers", phoneNumbers);
+
+            //units
+            JSONObject unitJsonObject = new JSONObject();
+            List<JSONObject> units = new ArrayList<>();
+            e.getProductUnits().forEach(e1->{
+                ProductUnit productUnit = productUnitRepository.getProductUnit(
+                        e1.getProductUnitId(), "unit");
+                JSONObject unit = new JSONObject();
+                unit.put("unitName", productUnit.getUnit().getName());
+                unit.put("unitPrice", productUnit.getUnitPrice());
+                units.add(unit);
+            });
+            unitJsonObject.put("units", units);
+
+            // product detail
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("product", productJsonObject);
+            jsonObject.put("category", cateJsonObject);
+            jsonObject.put("stall", stallJsonObject);
+            jsonObject.put("location", locaJsonObject);
+            jsonObject.put("user", userJsonObject);
+            jsonObject.put("units", unitJsonObject);
+            jsonObjects.add(jsonObject);
+
         });
         return jsonObjects;
     }
