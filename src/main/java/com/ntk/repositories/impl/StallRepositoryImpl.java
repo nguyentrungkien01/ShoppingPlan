@@ -5,16 +5,10 @@ import com.ntk.pojos.*;
 import com.ntk.repositories.StallRepository;
 import com.ntk.services.UserService;
 import org.hibernate.Session;
-import org.hibernate.annotations.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.*;
 import java.util.*;
 
@@ -169,8 +163,15 @@ public class StallRepositoryImpl implements StallRepository {
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<Stall> criteriaQuery = criteriaBuilder.createQuery(Stall.class);
         Root<Stall> root = criteriaQuery.from(Stall.class);
-        if(params.length>0 && params[0].equals("stallProducts"))
-            root.fetch(params[0]);
+        if(params!=null && params.length>0)
+            Arrays.stream(params).forEach(e->{
+                if(Objects.equals(e, "stallProducts"))
+                    root.fetch("stallProducts");
+                if(Objects.equals(e, "location"))
+                    root.fetch("location");
+                if(Objects.equals(e, "user"))
+                    root.fetch("user");
+            });
         criteriaQuery.select(root);
         Predicate p  = criteriaBuilder.equal(root.get("stallId").as(Integer.class),stallId);
         List<Stall> stalls = s.createQuery(criteriaQuery.where(p)).getResultList();

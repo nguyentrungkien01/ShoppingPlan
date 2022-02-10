@@ -12,7 +12,7 @@ public class Product implements Serializable {
     @Column(name ="product_id")
     private int productId;
 
-    @Column(name ="name", length = 30, nullable = false)
+    @Column(name ="name", length = 30, nullable = false, columnDefinition = "nvarchar")
     private String name;
 
     @Column(name="image")

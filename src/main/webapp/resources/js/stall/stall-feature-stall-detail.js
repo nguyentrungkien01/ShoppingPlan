@@ -20,23 +20,58 @@ function getProductListInfo(){
 }
 
 // stall amount
-function getProductListAmount(){
-     fetch("/ShoppingPlan/stall/stall-detail/api/productListAmount",{
-           method: "post",
-            body:JSON.stringify({
-                "stallId": gStallId.toString()
-            }),
-              headers: {
-                 'Content-Type': 'application/json'
-              }
-     })
-     .then(res=>res.json()).then(datas => {
-        gAmount= parseInt(datas["productListAmount"])
+function getProductListAmount() {
+    fetch("/ShoppingPlan/stall/stall-detail/api/productListAmount", {
+        method: "post",
+        body: JSON.stringify({
+            "stallId": gStallId.toString()
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json()).then(datas => {
+        gAmount = parseInt(datas["productListAmount"])
         setPagination(gAmount)
-     })
+    })
 }
 
-//add product
+//delete product
+function deleteProduct(productId) {
+    swal({
+        title: "Xác nhận xóa",
+        text: "Bạn có chắc chắn muốn xóa sản phẩm này? \n Mọi thông tin liên quan đến sản phẩm này sẽ bị xóa theo!",
+        icon: "warning",
+        dangerMode: true,
+    }).then(confirmDelete => {
+        if (confirmDelete) {
+            fetch("/ShoppingPlan/stall/stall-detail/api/deleteProduct", {
+                method: "post",
+                body: JSON.stringify({
+                    "productId": productId.toString()
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json()).then(datas => {
+                if(datas["result"]){
+                    swal(
+                        'Xóa sản phẩm thành công',
+                        'Chúc mừng bạn đã xóa sản phẩm thành công!',
+                        'success'
+                    ).then(() => initData())
+
+                }else{
+                    swal(
+                        'Xóa sản phẩm thất bại',
+                        'Đã có lỗi xảy ra trong quá trình xóa, vui lòng thử lại sau!',
+                        'fail'
+                    )
+                }
+            })
+        }
+    })
+}
 
 //pagination
 function setPagination(amount) {
@@ -137,8 +172,8 @@ function setProductListInfo(datas){
         row +=`
             <tr>
                 <td>
-                    <a href= "/ShoppingPlan/stall/detail/edit/?stallId=${stallId}"><span class="fa fa-pencil"></span></a>
-                    <a href= "javascript:;"><span class="fa fa-trash"></span></a>
+                    <a href= "/ShoppingPlan/stall/detail/edit/?stallId=${stallId}&productId=${productInfos["productId"]}"><span class="fa fa-pencil"></span></a>
+                    <a href= "javascript:;" onclick="deleteProduct('${productInfos["productId"]}')"><span class="fa fa-trash"></span></a>
                 </td>
                 <td scope="row">${productInfos["productId"]}</th>
                 <td>${productInfos["productName"]}</td>
@@ -146,7 +181,7 @@ function setProductListInfo(datas){
         for(let j=0; j<productInfos["productUnits"].length; j++){
                 var productUnits = productInfos["productUnits"][j]
                 row+=`
-                    <p>${productUnits["unitName"]} / ${productUnits["unitPrice"]} VNĐ </p>
+                    <p>${productUnits["unitPrice"]} VNĐ / ${productUnits["unitName"]}  </p>
                 `
         }
         row+=`</td>

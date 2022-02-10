@@ -2,7 +2,6 @@ package com.ntk.pojos;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -13,11 +12,15 @@ public class Unit implements Serializable {
     @Column(name = "unit_id")
     private int unitId;
 
-    @Column(name = "name", nullable = false, length = 20)
+    @Column(name = "name", nullable = false, length = 20, columnDefinition = "nvarchar")
     private String name;
 
     @OneToMany(mappedBy = "unit")
     private Set<ProductUnit> productUnits;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_type_id")
+    private UnitType unitType;
 
     public int getUnitId() {
         return unitId;
@@ -42,5 +45,13 @@ public class Unit implements Serializable {
 
     public void setProductUnits(Set<ProductUnit> productUnits) {
         this.productUnits = productUnits;
+    }
+
+    public UnitType getUnitType() {
+        return unitType;
+    }
+
+    public void setUnitType(UnitType unitType) {
+        this.unitType = unitType;
     }
 }

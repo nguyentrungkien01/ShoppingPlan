@@ -5,8 +5,6 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.ntk.pojos.Location;
 import com.ntk.pojos.Stall;
-import com.ntk.pojos.User;
-import com.ntk.services.AccountService;
 import com.ntk.services.LocationService;
 import com.ntk.services.StallService;
 import com.ntk.services.UserService;
@@ -15,16 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -59,10 +55,11 @@ public class StallFeatureController {
 
     @RequestMapping(path= "/stall/add", method = RequestMethod.POST,consumes = MediaType.ALL_VALUE)
     public String addStallData(HttpServletRequest httpServletRequest,
-                               @RequestParam("image") MultipartFile image){
-        String name = UtilsController.parseUTF8(httpServletRequest.getParameter("name"));
-        String locationId = UtilsController.decodeBase64(UtilsController.parseUTF8(
-                httpServletRequest.getParameter("location")));
+                               @RequestParam(name = "image", required = false) MultipartFile image) throws UnsupportedEncodingException {
+        httpServletRequest.setCharacterEncoding("UTF-8");
+        String name = httpServletRequest.getParameter("name");
+        String locationId = UtilsController.decodeBase64(
+                httpServletRequest.getParameter("location"));
         Stall stall= new Stall();
         stall.setName(name);
         stall.setLocation(locationService.getLocationObj(Integer.parseInt(locationId)));
@@ -80,8 +77,7 @@ public class StallFeatureController {
         }else
             stall.setImage(null);
         if(!httpServletRequest.getParameter("description").isEmpty())
-            stall.setDescription(UtilsController.parseUTF8(
-                        httpServletRequest.getParameter("description")));
+            stall.setDescription(httpServletRequest.getParameter("description"));
         else
             stall.setDescription(null);
         boolean result = stallService.addStall(stall);
@@ -96,10 +92,11 @@ public class StallFeatureController {
     }
 
     @RequestMapping(path= "/stall/add/location", method =RequestMethod.POST)
-    public String addStallLocation(Model model , HttpServletRequest httpServletRequest){
-        String locationName = UtilsController.parseUTF8(httpServletRequest.getParameter("locationName"));
-        String longitude = UtilsController.parseUTF8(httpServletRequest.getParameter("longitude"));
-        String latitude = UtilsController.parseUTF8(httpServletRequest.getParameter("latitude"));
+    public String addStallLocation(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
+        httpServletRequest.setCharacterEncoding("UTF-8");
+        String locationName =httpServletRequest.getParameter("locationName");
+        String longitude = httpServletRequest.getParameter("longitude");
+        String latitude = httpServletRequest.getParameter("latitude");
         if(longitude.isEmpty() || latitude.isEmpty())
             return String.format("redirect:/stall/add/location/?error=%s",
                     UtilsController.encodeBase64("noLocationData"));
@@ -125,11 +122,11 @@ public class StallFeatureController {
 
     @RequestMapping(path="/stall/edit", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
     public String editStallData(HttpServletRequest httpServletRequest,
-                                @RequestParam("image") MultipartFile image,
-                                @RequestParam("stallId") String stallId){
-        String name = UtilsController.parseUTF8(httpServletRequest.getParameter("name"));
-        String locationId = UtilsController.decodeBase64(UtilsController.parseUTF8(
-                httpServletRequest.getParameter("location")));
+                                @RequestParam(name = "image", required = false) MultipartFile image,
+                                @RequestParam("stallId") String stallId) throws UnsupportedEncodingException {
+        httpServletRequest.setCharacterEncoding("UTF-8");
+        String name = httpServletRequest.getParameter("name");
+        String locationId = UtilsController.decodeBase64(httpServletRequest.getParameter("location"));
         Stall stall = stallService.getStall(Integer.parseInt(UtilsController.decodeBase64(stallId)));
         stall.setName(name);
         Location location= locationService.getLocationObj(Integer.parseInt(locationId));
@@ -147,8 +144,7 @@ public class StallFeatureController {
         }else
             stall.setImage(null);
         if(!httpServletRequest.getParameter("description").isEmpty())
-            stall.setDescription(UtilsController.parseUTF8(
-                    httpServletRequest.getParameter("description")));
+            stall.setDescription(httpServletRequest.getParameter("description"));
         else
             stall.setDescription(null);
         boolean result=stallService.updateStall(stall);
@@ -192,7 +188,7 @@ public class StallFeatureController {
 
     @PostMapping("/stall/api/deleteStall")
     public ResponseEntity<JSONObject> deleteStall(@RequestBody Map<String, String> params){
-        String stallId = UtilsController.decodeBase64(UtilsController.parseUTF8(params.get("stallId")));
+        String stallId = UtilsController.decodeBase64(params.get("stallId"));
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", stallService.deleteStall(
                 stallService.getStall(Integer.parseInt(stallId), "stallProducts")));

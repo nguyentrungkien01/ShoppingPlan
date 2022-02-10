@@ -59,7 +59,7 @@ public class StallServiceImpl implements StallService {
         List<JSONObject> productJsonObjects = new ArrayList<>();
         products.forEach(e->{
             JSONObject productJsonObject = new JSONObject();
-            productJsonObject.put("productId", e.getProductId());
+            productJsonObject.put("productId",UtilsController.encodeBase64(String.valueOf(e.getProductId())));
             productJsonObject.put("productName", e.getName());
             productJsonObject.put("productImage",e.getImage());
             List<JSONObject> unitJsonObjects =new ArrayList<>();
@@ -75,8 +75,8 @@ public class StallServiceImpl implements StallService {
             productJsonObjects.add(productJsonObject);
         });
         productJsonObjects.sort((e1, e2) -> {
-            int eId1 = (int) e1.get("productId");
-            int eId2 = (int) e2.get("productId");
+            int eId1 = Integer.parseInt(UtilsController.decodeBase64((String) e1.get("productId")));
+            int eId2 =  Integer.parseInt(UtilsController.decodeBase64((String)  e2.get("productId")));
             return Integer.compare(eId1, eId2);
         });
         // stall detail

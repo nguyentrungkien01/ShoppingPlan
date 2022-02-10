@@ -12,7 +12,7 @@ public class Category implements Serializable {
     @Column(name = "category_id")
     private int categoryId;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false, columnDefinition = "nvarchar")
     private String name;
 
     @OneToMany(mappedBy = "category")

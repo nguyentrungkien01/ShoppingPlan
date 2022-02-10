@@ -12,10 +12,10 @@ public class User implements Serializable {
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "first_name", length = 20, nullable = false)
+    @Column(name = "first_name", length = 20, nullable = false, columnDefinition = "nvarchar")
     private String firstName;
 
-    @Column(name = "last_name", length = 50, nullable = false)
+    @Column(name = "last_name", length = 50, nullable = false, columnDefinition = "nvarchar")
     private String lastName;
 
     @Column(name="sex")
