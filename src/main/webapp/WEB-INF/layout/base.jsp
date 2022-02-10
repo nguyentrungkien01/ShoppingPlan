@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="<c:url value = '/plugin/cursor/cursor.css' />" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.0/dist/sweetalert2.min.css">
+    <link href="<c:url value = '/css/switch-button.css' />" rel="stylesheet" />
+    <!-- sweet alert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <tiles:insertAttribute name="ref" />
 </head>
 
@@ -57,7 +60,7 @@
     <script src="<c:url value = '/js/base.js' />"></script>
     <script src="<c:url value = '/js/setting.js' />"></script>
     <script src="<c:url value = '/plugin/cursor/cursor.js' />"></script>
-
+    <script src="<c:url value = '/js/sidebar.js' />"></script>
 </body>
 
 </html>

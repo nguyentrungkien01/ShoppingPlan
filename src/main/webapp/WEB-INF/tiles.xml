@@ -89,7 +89,7 @@
     <!--    Plan-->
     <definition name="plan-feature" extends="base">
         <put-attribute name="title" value="Kế hoạch mua sắm"/>
-        <put-attribute name="ref" value="/WEB-INF/ref/plan-feature.jsp"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/plan-feature.jsp"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/plan/plan-feature.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/plan/plan-feature.jsp"/>
     </definition>
 </tiles-definitions>

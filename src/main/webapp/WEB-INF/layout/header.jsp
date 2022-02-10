@@ -1,8 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div class="main-header">
 	<!-- Logo Header -->
 	<div class="logo-header" data-background-color="dark2">
-		<a class="logo" href="">Shopping Plan</a>
+		<a class="logo" href="">Kế hoạch mua sắm</a>
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
 			data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon">
@@ -36,24 +38,24 @@
 						<div>
 							<div class="quick-actions-items">
 								<div class="row m-0">
-									<a class="col-6 col-md-6 p-0" href="/admin/statisticview">
+									<a class="col-6 col-md-6 p-0" href="<c:url value = '/stall/add' />">
 										<div class="quick-actions-item">
 											<i class="flaticon-file-1"></i>
-											<span class="text">Thống kê</span>
+											<span class="text">Thêm quầy hàng</span>
 										</div>
 									</a>
-									<a class="col-6 col-md-6 p-0" href="/admin/reportview">
-										<div class="quick-actions-item">
-											<i class="flaticon-database"></i>
-											<span class="text">Báo cáo</span>
-										</div>
-									</a>
-									<a class="col-12 p-0" href="/admin/rulemodel">
-										<div class="quick-actions-item">
-											<i class="flaticon-database"></i>
-											<span class="text">Quy định chung</span>
-										</div>
-									</a>
+<%-- 									<a class="col-6 col-md-6 p-0" href="/admin/reportview"> --%>
+<%-- 										<div class="quick-actions-item"> --%>
+<%-- 											<i class="flaticon-database"></i> --%>
+<%-- 											<span class="text">Báo cáo</span> --%>
+<%-- 										</div> --%>
+<%-- 									</a> --%>
+<%-- 									<a class="col-12 p-0" href="/admin/rulemodel"> --%>
+<%-- 										<div class="quick-actions-item"> --%>
+<%-- 											<i class="flaticon-database"></i> --%>
+<%-- 											<span class="text">Quy định chung</span> --%>
+<%-- 										</div> --%>
+<%-- 									</a> --%>
 								</div>
 							</div>
 						</div>
@@ -64,7 +66,7 @@
 					<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:;"
 						aria-expanded="false">
 						<div class="avatar-sm">
-							<img src="https://res.cloudinary.com/ouproject/image/upload/v1641740539/avatar_account/default_avatar_mvuqgu_vigdu2.png"
+							<img src="https://res.cloudinary.com/nguyentrungkien/image/upload/v1644318450/default_avatar_mvuqgu_vigdu2_ashpil.png"
 								alt="avatar user" class="avatar-img rounded-circle">
 						</div>
 					</a>
@@ -73,23 +75,23 @@
 							<li>
 								<div class="user-box">
 									<div class="avatar-lg">
-										<img src="https://res.cloudinary.com/ouproject/image/upload/v1641740539/avatar_account/default_avatar_mvuqgu_vigdu2.png"
+										<img src="https://res.cloudinary.com/nguyentrungkien/image/upload/v1644318450/default_avatar_mvuqgu_vigdu2_ashpil.png"
 											alt="image profile" class="avatar-img rounded">
 									</div>
 									<div class="u-text">
 										<h4>
 										user name
 										</h4>
-										<a href="/admin/profileview" class="btn btn-xs btn-secondary btn-sm">Thông tin
+										<a href="javascript:;" class="btn btn-xs btn-secondary btn-sm">Thông tin
 											cá nhân</a>
 									</div>
 								</div>
 							</li>
 							<li>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/admin/changepasswordview/">Đổi mật khẩu</a>
+								<a class="dropdown-item" href="javascript:;">Đổi mật khẩu</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/admin/logoutview">Đăng xuất</a>
+								<a class="dropdown-item" href="<c:url value='/sign-out'/>">Đăng xuất</a>
 							</li>
 						</div>
 					</ul>

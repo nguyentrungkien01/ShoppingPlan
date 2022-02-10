@@ -12,10 +12,10 @@ public class Stall implements Serializable {
     @Column(name = "stall_id")
     private int stallId;
 
-    @Column(name ="name", length = 60, nullable = false)
+    @Column(name ="name", length = 60, nullable = false, columnDefinition = "nvarchar")
     private String name;
 
-    @Column(name ="description")
+    @Column(name ="description", columnDefinition = "ntext")
     private String description;
 
     @Column(name="image")
