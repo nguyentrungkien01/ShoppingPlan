@@ -171,9 +171,9 @@ function setProductListInfo(datas){
          var stallId = window.btoa(gStallId)
         row +=`
             <tr>
-                <td>
-                    <a href= "/ShoppingPlan/stall/detail/edit/?stallId=${stallId}&productId=${productInfos["productId"]}"><span class="fa fa-pencil"></span></a>
-                    <a href= "javascript:;" onclick="deleteProduct('${productInfos["productId"]}')"><span class="fa fa-trash"></span></a>
+                <td class="td-icon">
+                    <a href= "/ShoppingPlan/stall/detail/edit/?stallId=${stallId}&productId=${productInfos["productId"]}"><i class="fa fa-pencil"></i></a>
+                    <a href= "javascript:;"onclick="deleteProduct('${productInfos["productId"]}')"><i class="fa fa-trash"></i></a>
                 </td>
                 <td scope="row">${productInfos["productId"]}</th>
                 <td>${productInfos["productName"]}</td>
@@ -186,7 +186,7 @@ function setProductListInfo(datas){
         }
         row+=`</td>
                 <td>${datas["productDetailList"][i]["productCategory"]}</td>
-                <td>
+                <td class="td-img">
                    <img src="${productImage}"/>
                 </td>
             </tr>

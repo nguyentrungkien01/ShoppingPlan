@@ -14,7 +14,7 @@
     </definition>
 
     <!-- intro -->
-    <definition name="intro-page" extends="base">
+    <definition name="intro-page" template="/WEB-INF/layout/intro-base.jsp">
         <put-attribute name="title" value="Giới thiệu chung"/>
         <put-attribute name="ref" value="/WEB-INF/ref/intro/intro-feature.jsp"/>
         <put-attribute name="header" value="/WEB-INF/jsp/intro/intro-page-header.jsp"/>
@@ -24,8 +24,11 @@
     </definition>
 
     <!-- sign in/up -->
-    <definition name="sign-base" extends="intro-page">
-        <put-attribute name="header" value="/WEB-INF/layout/blank.jsp"/>
+    <definition name="sign-base" template="/WEB-INF/layout/sign-base.jsp">
+        <put-attribute name="title" value="Sign base"/>
+        <put-attribute name="ref" value="/WEB-INF/layout/blank.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/layout/blank.jsp"/>
+        <put-attribute name="configuration-plugin" value="/WEB-INF/layout/configuration-plugin.jsp"/>
     </definition>
     <definition name="sign-in" extends="sign-base">
         <put-attribute name="title" value="Đăng nhập"/>
