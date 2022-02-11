@@ -13,4 +13,5 @@ public interface ProductService {
     JSONObject getProductDetail(int productId, String...params);
     List<JSONObject> getProductNames(String productName, String... params);
     List<JSONObject> getProductDetails(String productName, int offset, int limit, String... params);
+    JSONObject getAmountProductDetails(String productName);
 }

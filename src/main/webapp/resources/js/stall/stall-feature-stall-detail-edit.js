@@ -101,7 +101,7 @@ function addUnitDataResult(unitId, unitName) {
         gOrderIdUnit = 0
 
     for(let i =1; i<=gOrderIdUnit; i++)
-        if($(`#unitDataResult tr:nth-child(${i})`).attr('id').includes(unitId)){
+        if($(`#unitDataResult > tr:nth-child(${i})`).attr('id').includes(unitId)){
             swal(
                 'Chọn thất bại',
                 'Đơn vị này đã được chọn vào danh sách!',
