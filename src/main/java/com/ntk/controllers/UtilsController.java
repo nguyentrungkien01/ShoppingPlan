@@ -22,13 +22,18 @@ public class UtilsController {
     }
 
     public static List<List<String>> splitStr(String str, String... sep){
+        List<List<String>> result = new ArrayList<>();
+        if(sep.length==1){
+            result.add(Arrays.stream(str.split(sep[0])).toList());
+            return result;
+        }
         if(sep.length>=2) {
-            List<List<String>> result = new ArrayList<>();
             Arrays.stream( str.split(sep[0])).toList().forEach(e-> result.add(
                     Arrays.stream(e.split(sep[1])).toList()));
 
             return result;
         }
+
         return null;
     }
 }

@@ -141,7 +141,6 @@ public class ProductServiceImpl implements ProductService {
             userJsonObject.put("phoneNumbers", phoneNumbers);
 
             //units
-            JSONObject unitJsonObject = new JSONObject();
             List<JSONObject> units = new ArrayList<>();
             e.getProductUnits().forEach(e1->{
                 ProductUnit productUnit = productUnitRepository.getProductUnit(
@@ -151,7 +150,6 @@ public class ProductServiceImpl implements ProductService {
                 unit.put("unitPrice", productUnit.getUnitPrice());
                 units.add(unit);
             });
-            unitJsonObject.put("units", units);
 
             // product detail
             JSONObject jsonObject = new JSONObject();
@@ -160,10 +158,19 @@ public class ProductServiceImpl implements ProductService {
             jsonObject.put("stall", stallJsonObject);
             jsonObject.put("location", locaJsonObject);
             jsonObject.put("user", userJsonObject);
-            jsonObject.put("units", unitJsonObject);
+            jsonObject.put("units", units);
             jsonObjects.add(jsonObject);
 
         });
         return jsonObjects;
+    }
+
+    @Override
+    @Transactional
+    public JSONObject getAmountProductDetails(String productName) {
+        JSONObject jsonObject = new JSONObject();
+        List<Product> products= productRepository.getProducts(productName);
+        jsonObject.put("amount", products==null?0:products.size());
+        return jsonObject;
     }
 }
