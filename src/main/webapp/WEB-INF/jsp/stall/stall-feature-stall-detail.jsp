@@ -26,7 +26,7 @@
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover model-list">
-              <thead>
+              <thead class="bg-thead">
                 <tr>
                   <th scope="">Thao tác</th>
                   <th scope="col">Mã sản phẩm</th>

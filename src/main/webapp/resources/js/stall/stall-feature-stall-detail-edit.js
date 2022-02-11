@@ -198,17 +198,15 @@ function setProductInfo(datas) {
                 <td>${i+1}</td>
                 <td>${units[i]['unitName']}</td>
                 <td>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <input type="number" class="form-control" value="${units[i]['unitPrice']}"
-                                    name="unitPrice${i+1}" required/>
-                            </div>
-                            <div class="col">
-                                 <p>VNĐ</p>
-                            </div>
-                        </div>
+                <div class="form-group">
+                <div class="row flex-nowrap align-items-center justify-content-center">
+                    <div style="width:200px">
+                        <input type="number" class="form-control" value="100010"
+                            name="unitPrice${gOrderIdUnit}" required/>
                     </div>
+                    <p style="width:30px; margin-bottom:unset;padding-left: 15px;">VNĐ</p>
+                </div>
+            </div>
                 </td>
                 <td>
                     <button type="button" class="btn btn-outline-danger"
