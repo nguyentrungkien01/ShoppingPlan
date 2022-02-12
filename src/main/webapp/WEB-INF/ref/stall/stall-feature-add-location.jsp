@@ -8,5 +8,5 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
-<link href="<c:url value = '/css/stall/stall-location.css' />"  rel= "stylesheet"/>
+<link href="<c:url value = '/css/stall-location.css' />"  rel= "stylesheet"/>
 <script src="<c:url value = '/js/stall/stall-feature-add-location.js' />"></script>

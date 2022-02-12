@@ -51,15 +51,16 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
     }
 
-    private void fetchProductInfor(Root<Product> root, String ... params){
-        Arrays.stream(params).forEach(e -> {
-            if (Objects.equals(e, "category") ||
-                    Objects.equals(e, "stall") ||
-                    Objects.equals(e, "productUnits"))
-                root.fetch(e);
-            if(Objects.equals(e, "userProducts"))
-                root.fetch(e, JoinType.LEFT);
-        });
+    private void fetchProductInfor(Root<Product> root, String... params) {
+        if (params != null && params.length > 0)
+            Arrays.stream(params).forEach(e -> {
+                if (Objects.equals(e, "category") ||
+                        Objects.equals(e, "stall") ||
+                        Objects.equals(e, "productUnits"))
+                    root.fetch(e);
+                if (Objects.equals(e, "userProducts"))
+                    root.fetch(e, JoinType.LEFT);
+            });
     }
 
     @Override
@@ -68,8 +69,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = criteriaQuery.from(Product.class);
-        if (params != null && params.length > 0)
-            fetchProductInfor(root, params);
+        fetchProductInfor(root, params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.equal(root.get("productId").as(Integer.class), productId);
         List<Product> products = s.createQuery(criteriaQuery.where(p)).getResultList();
@@ -84,8 +84,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = criteriaQuery.from(Product.class);
-        if (params != null && params.length > 0)
-            fetchProductInfor(root, params);
+        fetchProductInfor(root, params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.like(root.get("name").as(String.class),
                 String.format("%s%%", productName));
@@ -99,13 +98,12 @@ public class ProductRepositoryImpl implements ProductRepository {
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = criteriaQuery.from(Product.class);
-        if (params != null && params.length > 0)
-            fetchProductInfor(root, params);
+        fetchProductInfor(root, params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.like(root.get("name").as(String.class),
                 String.format("%s%%", productName));
         return s.createQuery(criteriaQuery.where(p)
-                .orderBy(criteriaBuilder.asc(root.get("name"))))
+                        .orderBy(criteriaBuilder.asc(root.get("name"))))
                 .setFirstResult(offset).setMaxResults(limit).getResultList();
     }
 }

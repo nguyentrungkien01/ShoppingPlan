@@ -578,7 +578,7 @@ li.hc-home-new:after {
     }
 
     .hc-footer-contact-list {
-        -ms-grid-columns: (1fr);
+        -ms-grid-columns: 1fr;
         grid-template-columns: repeat(1, 1fr);
     }
 

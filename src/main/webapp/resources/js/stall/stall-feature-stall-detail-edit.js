@@ -120,14 +120,12 @@ function addUnitDataResult(unitId, unitName) {
             <td>${unitName}</td>
             <td>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col">
+                    <div class="row flex-nowrap align-items-center justify-content-center">
+                        <div style="width:200px">
                             <input type="number" class="form-control" value="1000"
                                 name="unitPrice${gOrderIdUnit}" required/>
                         </div>
-                        <div class="col">
-                             <p>VNĐ</p>
-                        </div>
+                       <p style="width:30px; margin-bottom:unset;padding-left: 15px;">VNĐ</p>
                     </div>
                 </div>
             </td>
@@ -201,7 +199,7 @@ function setProductInfo(datas) {
                 <div class="form-group">
                 <div class="row flex-nowrap align-items-center justify-content-center">
                     <div style="width:200px">
-                        <input type="number" class="form-control" value="100010"
+                        <input type="number" class="form-control" value="1000"
                             name="unitPrice${gOrderIdUnit}" required/>
                     </div>
                     <p style="width:30px; margin-bottom:unset;padding-left: 15px;">VNĐ</p>

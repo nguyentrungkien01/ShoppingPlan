@@ -3,16 +3,20 @@ package com.ntk.services.Impl;
 
 import com.ntk.controllers.UtilsController;
 import com.ntk.pojos.Location;
-import com.ntk.repositories.AccountRepository;
-import com.ntk.repositories.LocationRepository;
-import com.ntk.repositories.UserRepository;
+import com.ntk.pojos.Product;
+import com.ntk.pojos.Stall;
+import com.ntk.pojos.UserProduct;
+import com.ntk.repositories.*;
 import com.ntk.services.AccountService;
 import com.ntk.services.LocationService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -25,6 +29,15 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserProductRepository userProductRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private StallRepository stallRepository;
 
     @Override
     @Transactional
@@ -66,6 +79,28 @@ public class LocationServiceImpl implements LocationService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("locationId", UtilsController.encodeBase64(String.valueOf(e.getLocationId())));
             jsonObject.put("locationName", e.getName());
+            jsonObjects.add(jsonObject);
+        });
+        return jsonObjects;
+    }
+
+    @Override
+    @Transactional
+    public Set<JSONObject> getProductLocationCurrentUser() {
+        List<UserProduct> userProducts = userProductRepository.getUserProducts(accountRepository.getAccount(
+                UtilsController.getCurrentUsername()).getUser(), "product");
+        List<Product> products = new ArrayList<>();
+        userProducts.forEach(e->products.add(productRepository.getProduct(
+                e.getProduct().getProductId(), "stall")));
+        Set<Stall> stalls = new HashSet<>();
+        products.forEach(e->stalls.add(stallRepository.getStall( e.getStall().getStallId(), "location")));
+        Set<Location> locations= new HashSet<>();
+        stalls.forEach(e->locations.add(e.getLocation()));
+        Set<JSONObject> jsonObjects = new HashSet<>();
+        locations.forEach(e->{
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("longitude", e.getLongitude());
+            jsonObject.put("latitude", e.getLatitude());
             jsonObjects.add(jsonObject);
         });
         return jsonObjects;

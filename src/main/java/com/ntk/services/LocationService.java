@@ -11,4 +11,5 @@ public interface LocationService {
     Set<Location> getLocationsOfCurrentUser();
     JSONObject getLocation(int locationId);
     Set<JSONObject> getLocationsOfCurrentUser(Set<Location> locations);
+    Set<JSONObject> getProductLocationCurrentUser();
 }
