@@ -61,18 +61,17 @@ function getProductAmount() {
 
 
 function setActiveDataResult() {
-    for (let i = 3; i <= $("#dataResult").children().length; i++) {
-        if(i%2!==0) {
-            const choice = $(`#dataResult > div:nth-child(${i}) > div:nth-child(2) > button:nth-child(2)`)
-            choice.removeClass('active')
-            for (let j = 1; j <= $("#dataChoice").children().length; j++) {
-                const rowResult = $(`#dataChoice > div:nth-child(${j})`)
-                if ($(`#dataResult > div:nth-child(${i}`).attr('id').includes(rowResult.attr('id'))) {
-                    choice.addClass('active')
-                    break
-                }
+    for (let i = 3; i <= $("#dataResult").children().length; i += 2) {
+        const choice = $(`#dataResult > div:nth-child(${i}) > div:nth-child(2) > button:nth-child(2)`)
+        choice.removeClass('active')
+        for (let j = 1; j <= $("#dataChoice").children().length; j++) {
+            const rowResult = $(`#dataChoice > div:nth-child(${j})`)
+            if ($(`#dataResult > div:nth-child(${i}`).attr('id').includes(rowResult.attr('id'))) {
+                choice.addClass('active')
+                break
             }
         }
+
     }
 }
 
