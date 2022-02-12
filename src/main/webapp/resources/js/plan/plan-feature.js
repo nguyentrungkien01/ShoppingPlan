@@ -30,8 +30,7 @@ function getSearchResult() {
             'Content-Type': 'application/json'
         }
     }).then(res => res.json()).then(datas => {
-        if(datas.length===0)
-        {
+        if (datas.length === 0) {
             swal(
                 'Tìm không thành công',
                 'Không tìm thấy sản phẩm phù hợp với yêu cầu!',
@@ -76,7 +75,7 @@ function setActiveDataResult() {
 }
 
 //hint
-function setHintData(datas){
+function setHintData(datas) {
     if (datas.length > 0)
         gIndexHintProductName = 1
     let row = '';
@@ -127,11 +126,11 @@ function setSearchResult(datas) {
                             <img src="${productImage}" style="width: 100px; height: 100px; border-radius: 10px;">
                         </div>
                     </div>
-                  <div id="product_${product['productId']}"></div>
+                  <div id="product_${product['productId']}" class="product-detail"></div>
                 </div>
                 <div class="col-12 col-md-4">  
                   <button type="button" class="btn btn-outline-success m-2"
-                            onclick="showDetail('product_${product['productId']}', '${encodeURIComponent(JSON.stringify(datas[i]))}')">
+                            onclick="showDetail('product_${product['productId']}', '${encodeURIComponent(JSON.stringify(datas[i]))}')" id="showDetail">
                             Xem chi tiết</button>
                   <button type="button" class="btn btn-outline-success m-2" 
                             onclick="addChoice(
@@ -147,6 +146,7 @@ function setSearchResult(datas) {
     $('#dataResult').html(searchResult)
     setActiveDataResult()
 }
+
 function addChoice(product, units, locationName, owner) {
     product = JSON.parse(decodeURIComponent(product))
     units = JSON.parse(decodeURIComponent(units))
@@ -172,14 +172,14 @@ function addChoice(product, units, locationName, owner) {
 
     //product units html
     let productUnits = '<ul class="list-group">';
-    for(let i =0; i<units.length; i++)
-        productUnits +=`
+    for (let i = 0; i < units.length; i++)
+        productUnits += `
              <li class="list-group-item d-flex justify-content-between align-items-center">
                 ${units[i]['unitPrice']} VNĐ
                 <span class="badge bg-primary rounded-pill">${units[i]['unitName']}</span>
               </li>
         `
-    productUnits+='</ul>'
+    productUnits += '</ul>'
 
     //data choice
     dataChoice += `
@@ -212,6 +212,11 @@ function addChoice(product, units, locationName, owner) {
 }
 
 function showDetail(detailId, productDetail) {
+    var text = document.getElementById('showDetail');
+    if (text.innerText.toLowerCase() === 'xem chi tiết')
+        text.innerText = 'Đóng xem chi tiết';
+    else
+        text.innerText = 'Xem chi tiết';
     productDetail = JSON.parse(decodeURIComponent(productDetail))
     var stall = productDetail['stall']
     var location = productDetail['location']
@@ -228,21 +233,17 @@ function showDetail(detailId, productDetail) {
         userFacebookLink = "javascript:;"
 
     var phoneNumberList = user['phoneNumbers']
-    let phoneNumbers = '<ul class="list-group">';
+    let phoneNumbers = '<span class="font-weight-normal">';
     for (let i = 0; i < phoneNumberList.length; i++)
-        phoneNumbers += `
-             <li class="list-group-item d-flex justify-content-between align-items-center">
-                ${phoneNumberList[i]['name']}
-             </li>
-        `
-    phoneNumbers += '</ul>'
+        phoneNumbers += ` ${phoneNumberList[i]['name']};`
+    phoneNumbers += '</span>'
 
     let productUnits = '<ul class="list-group">';
     for (let i = 0; i < units.length; i++)
         productUnits += `
              <li class="list-group-item d-flex justify-content-between align-items-center">
                 ${units[i]['unitPrice']} VNĐ
-                <span class="badge bg-primary rounded-pill">${units[i]['unitName']}</span>
+                <span class="badge bg-success rounded-pill">${units[i]['unitName']}</span>
               </li>
         `
     productUnits += '</ul>'
@@ -259,33 +260,35 @@ function showDetail(detailId, productDetail) {
     if (detail.innerHTML == null || detail.innerHTML.length <= 0) {
         button.addClass('active')
         newDetail = `
-                <h1 class="text-center">Chi tiết sản phẩm</h1>
-                <h1>Chủ quầy hàng</h1>
-                <p>Tên: ${user['userLastName']} ${user['userFirstName']} <button type="button" class="btn btn-outline-danger">Báo cáo</button></p>
+                <h1 class="card-title text-center m-4 pt-2">Chi tiết sản phẩm</h1>
+                <h1 class="card-title font-weight-bold">Chủ quầy hàng</h1>
+                <p><span class="font-weight-bold">Tên:</span> ${user['userLastName']} ${user['userFirstName']} <button type="button" class="btn btn-outline-danger ml-2 btn-sm">Báo cáo</button></p>
             
                 <a href="${userFacebookLink}">Địa chỉ facebook</a>
-                <h3>Số điện thoại: </h3>
-                ${phoneNumbers}
-                
-                <h1>Quầy hàng: ${stall['stallName']}</h1>
-                <div class="row">
+                <div class="separator-solid"></div>
+                <p class="mt-3"><span class="card-title font-weight-bold">Số điện thoại:</span> ${phoneNumbers}</p>
+                <div class="separator-solid"></div>
+                <h1 class="card-title mt-3 font-weight-bold">Quầy hàng: ${stall['stallName']}</h1>
+                <div class="row align-items-center">
                     <div class="col">
-                        <p>Mô tả: ${stallDescription}</p>
+                        <p><span class="font-weight-bold">Mô tả:</span> ${stallDescription}</p>
                     </div>
                     <div class="col">
                         <img src="${stallImage}" style="width: 100px; height: 100px"/>
                     </div>
                 </div>
-                <h1>Vị trí: ${location['locationName']}</h1>
+                <div class="separator-solid"></div>
+                <h1 class="card-title mt-4 font-weight-bold">Vị trí: ${location['locationName']}</h1>
                 <div class="row">
                     <div class="col">
-                        <p>Kinh độ: ${location['locationLongitude']}</p>
+                        <p><span class="font-weight-bold">Kinh độ:</span> ${location['locationLongitude']}</p>
                     </div>
                     <div class="col">
-                        <p>Vĩ độ: ${location['locationLatitude']}</p>
+                        <p><span class="font-weight-bold">Vĩ độ:</span> ${location['locationLatitude']}</p>
                     </div>
                 </div>
-                <h3>Đơn giá:</h3>
+                <div class="separator-solid"></div>
+                <h3 class="card-title mt-4 mb-3 font-weight-bold">Đơn giá:</h3>
                 ${productUnits}
         `
     } else {
@@ -294,7 +297,7 @@ function showDetail(detailId, productDetail) {
     detail.innerHTML = newDetail
 }
 
-function removeChoice(productId){
+function removeChoice(productId) {
 
     for (let i = 1; i <= gOrderChoice; i++) {
         const row = $(`#dataChoice > div:nth-child(${i})`)
@@ -307,7 +310,7 @@ function removeChoice(productId){
     gOrderChoice--
     for (let i = 1; i <= gOrderChoice; i++)
         $(`#dataChoice > div:nth-child(${i}) h5 span:nth-child(1)`)
-            .text(i.toString())
+        .text(i.toString())
     $('#amountChoice').text(gOrderChoice)
     toggleSearchRouteBtn()
 }
@@ -402,14 +405,15 @@ function initData() {
     getProductAmount()
     getSearchResult()
 }
-function toggleSearchRouteBtn(){
-    if(gOrderChoice<=0)
+
+function toggleSearchRouteBtn() {
+    if (gOrderChoice <= 0)
         $('#searchRoute').hide()
     else
         $('#searchRoute').show()
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     toggleSearchRouteBtn()
 
     $('#amountChoice').text(gOrderChoice)
@@ -476,12 +480,11 @@ $(document).ready(function() {
         }
         if (value.length > 0) {
             value = value.substring(0, value.length - 1)
-            var input = $("<input />",
-                {
-                    name: "products",
-                    value: value,
-                    type: "hidden"
-                })
+            var input = $("<input />", {
+                name: "products",
+                value: value,
+                type: "hidden"
+            })
             $(this).append(input)
         }
     })
