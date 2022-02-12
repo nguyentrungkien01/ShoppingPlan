@@ -9,7 +9,7 @@ function getProductNameHint(data) {
         fetch('/ShoppingPlan/plan/api/productNameHint', {
             method: 'post',
             body: JSON.stringify({
-                'keyword': data.toString()
+                'keyword': data.toString().trim()
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ function getSearchResult() {
     fetch('/ShoppingPlan/plan/api/searchResult', {
         method: 'post',
         body: JSON.stringify({
-            'keyword': $('#name').val(),
+            'keyword': $('#name').val().trim(),
             'limit': gLimit.toString(),
             'offSet': gOffSet.toString()
         }),
@@ -49,7 +49,7 @@ function getProductAmount() {
     fetch('/ShoppingPlan/plan/api/amountSearchResult', {
         method: 'post',
         body: JSON.stringify({
-            'keyword': $('#name').val()
+            'keyword': $('#name').val().trim()
         }),
         headers: {
             'Content-Type': 'application/json'

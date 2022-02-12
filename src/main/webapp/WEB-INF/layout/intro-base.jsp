@@ -27,13 +27,12 @@
     <!-- Fullpage -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.css" />
     <!-- Main css -->
-    <link href="<c:url value = '/css/intro/intro.css' />" rel="stylesheet" />
+    <link href="<c:url value = '/css/intro.css' />" rel="stylesheet" />
     <!-- Cursor -->
     <link rel="stylesheet" href="<c:url value = '/plugin/cursor/cursor.css' />" />
     <!-- sweet alert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
-        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <tiles:insertAttribute name="ref" />
 </head>
 
@@ -72,7 +71,8 @@
                 navigationPosition: 'right',
                 showActiveTooltip: true,
                 slidesNavigation: true,
-                slidesNavPosition: 'bottom'
+                slidesNavPosition: 'bottom',
+
             });
 
             //methods

@@ -10,12 +10,6 @@ public class UserProduct implements Serializable {
     @EmbeddedId
     private UserProductId userProductId;
 
-    @Column(name = "amount")
-    private int amount;
-
-    @Column(name ="time_ordered")
-    private Date timeOrdered;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable=false, updatable=false)
     private User user;
@@ -30,22 +24,6 @@ public class UserProduct implements Serializable {
 
     public void setUserProductId(UserProductId userProductId) {
         this.userProductId = userProductId;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public Date getTimeOrdered() {
-        return timeOrdered;
-    }
-
-    public void setTimeOrdered(Date timeOrdered) {
-        this.timeOrdered = timeOrdered;
     }
 
     public User getUser() {
