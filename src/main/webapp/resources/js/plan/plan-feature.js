@@ -61,16 +61,17 @@ function getProductAmount() {
 
 
 function setActiveDataResult() {
-    for (let i = 1; i <= $("#dataResult").children().length; i++) {
-        const choice = $(`#dataResult > div:nth-child(${i}) > div:nth-child(2) > button:nth-child(2)`);
+    for (let i = 3; i <= $("#dataResult").children().length; i += 2) {
+        const choice = $(`#dataResult > div:nth-child(${i}) > div:nth-child(2) > button:nth-child(2)`)
         choice.removeClass('active')
         for (let j = 1; j <= $("#dataChoice").children().length; j++) {
             const rowResult = $(`#dataChoice > div:nth-child(${j})`)
-            if ( $(`#dataResult > div:nth-child(${i}`).attr('id').includes(rowResult.attr('id'))) {
+            if ($(`#dataResult > div:nth-child(${i}`).attr('id').includes(rowResult.attr('id'))) {
                 choice.addClass('active')
                 break
             }
         }
+
     }
 }
 
@@ -132,13 +133,12 @@ function setSearchResult(datas) {
                   <button type="button" class="btn btn-outline-success m-2"
                             onclick="showDetail('product_${product['productId']}', '${encodeURIComponent(JSON.stringify(datas[i]))}')">
                             Xem chi tiết</button>
-                    <button type="button" class="btn btn-outline-success m-2" 
+                  <button type="button" class="btn btn-outline-success m-2" 
                             onclick="addChoice(
                                 '${encodeURIComponent(JSON.stringify(product))}', 
                                 '${encodeURIComponent(JSON.stringify(units))}',
                                 '${location['locationName']}',
                                 '${user['userLastName']} ${user['userFirstName']}')">Chọn</button>
-
                 </div>
             </div>
             <div class="separator-solid"></div>
@@ -211,7 +211,7 @@ function addChoice(product, units, locationName, owner) {
     toggleSearchRouteBtn()
 }
 
-function showDetail(detailId, productDetail){
+function showDetail(detailId, productDetail) {
     productDetail = JSON.parse(decodeURIComponent(productDetail))
     var stall = productDetail['stall']
     var location = productDetail['location']
@@ -221,46 +221,48 @@ function showDetail(detailId, productDetail){
     if (stallImage == null || stallImage.length <= 0)
         stallImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466243/stall/default_upj3uc.jpg"
     var stallDescription = stall['stallDescription']
-    if(stallDescription ==null)
-        stallDescription= "Chưa cập nhật"
+    if (stallDescription == null)
+        stallDescription = "Chưa cập nhật"
     var userFacebookLink = user['userFacebookLink']
-    if(userFacebookLink ==null)
-        userFacebookLink= "javascript:;"
+    if (userFacebookLink == null)
+        userFacebookLink = "javascript:;"
 
     var phoneNumberList = user['phoneNumbers']
     let phoneNumbers = '<ul class="list-group">';
-    for(let i =0; i<phoneNumberList.length; i++)
-        phoneNumbers +=`
+    for (let i = 0; i < phoneNumberList.length; i++)
+        phoneNumbers += `
              <li class="list-group-item d-flex justify-content-between align-items-center">
                 ${phoneNumberList[i]['name']}
              </li>
         `
-    phoneNumbers+='</ul>'
+    phoneNumbers += '</ul>'
 
     let productUnits = '<ul class="list-group">';
-    for(let i =0; i<units.length; i++)
-        productUnits +=`
+    for (let i = 0; i < units.length; i++)
+        productUnits += `
              <li class="list-group-item d-flex justify-content-between align-items-center">
                 ${units[i]['unitPrice']} VNĐ
                 <span class="badge bg-primary rounded-pill">${units[i]['unitName']}</span>
               </li>
         `
-    productUnits+='</ul>'
+    productUnits += '</ul>'
 
     var detail = document.getElementById(detailId)
-    var button=null
-    for (let i=1; i<=$('#dataResult').children().length; i++)
-        if($(`#dataResult > div:nth-child(${i})`).attr('id').includes(detailId.substring("product_".length))) {
+    var button = null
+    for (let i = 3; i <= $('#dataResult').children().length; i += 2)
+        if ($(`#dataResult > div:nth-child(${i})`).attr('id').includes(detailId.substring("product_".length))) {
             button = $(`#dataResult > div:nth-child(${i}) > div:nth-child(2) > button:nth-child(1)`)
             break
         }
-    var newDetail=''
-    if(detail.innerHTML==null || detail.innerHTML.length<=0)
-    {
+
+    var newDetail = ''
+    if (detail.innerHTML == null || detail.innerHTML.length <= 0) {
         button.addClass('active')
-        newDetail =`
+        newDetail = `
+                <h1 class="text-center">Chi tiết sản phẩm</h1>
                 <h1>Chủ quầy hàng</h1>
-                <p>Tên: ${user['userLastName']} ${user['userFirstName']}</p>
+                <p>Tên: ${user['userLastName']} ${user['userFirstName']} <button type="button" class="btn btn-outline-danger">Báo cáo</button></p>
+            
                 <a href="${userFacebookLink}">Địa chỉ facebook</a>
                 <h3>Số điện thoại: </h3>
                 ${phoneNumbers}
@@ -286,10 +288,10 @@ function showDetail(detailId, productDetail){
                 <h3>Đơn giá:</h3>
                 ${productUnits}
         `
-    }else{
-         button.removeClass('active')
+    } else {
+        button.removeClass('active')
     }
-    detail.innerHTML=newDetail
+    detail.innerHTML = newDetail
 }
 
 function removeChoice(productId){
