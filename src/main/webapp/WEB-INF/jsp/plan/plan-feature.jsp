@@ -50,8 +50,8 @@
                         <div class="col-12">
                             <div id="dataChoice"></div>
                             <form method="post" action="<c:url value='/plan/route' />" id="planControl">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-center" id="searchRoute">Tìm đường</button>
+                                <div class="form-group btn-center">
+                                    <button type="submit" class="btn btn-primary " id="searchRoute">Tìm đường</button>
                                 </div>
                             </form>
                         </div>

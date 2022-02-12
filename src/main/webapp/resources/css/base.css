@@ -6770,10 +6770,11 @@ label.error {
   border-radius: 50px;
   margin-left: auto;
   line-height: 1;
-  padding: 6px 10px;
+  padding: 10px 14px;
   vertical-align: middle;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 13px;
+  color: #000;
   border: 1px solid #ddd;
 }
 
@@ -13741,4 +13742,25 @@ body .main-panel .modal-content .modal-body input:focus {
   height: 30px;
   line-height: 30px;
   text-align: center;
+}
+
+.product-detail {
+  padding: 0 20px 20px 20px;
+  border-radius: 10px;
+}
+
+body[data-background-color="dark"] .product-detail {
+  background: #2a3142;
+}
+
+body[data-background-color="bg1"] .product-detail {
+  background: #dddee3;
+}
+
+body[data-background-color="bg2"] .product-detail {
+  background: #dddee3;
+}
+
+body[data-background-color="bg3"] .product-detail {
+  background: #dddee3;
 }
