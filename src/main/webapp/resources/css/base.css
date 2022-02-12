@@ -12748,6 +12748,11 @@ body[data-background-color="dark"] .auth-wrapper .form-group label {
   z-index: 9999
 }
 
+.show-hint-product {
+  right: unset;
+  left: 17px;
+}
+
 .show-hint p {
   padding: 5px 10px;
   margin: unset;

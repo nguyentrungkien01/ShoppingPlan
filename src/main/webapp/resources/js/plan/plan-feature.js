@@ -99,7 +99,9 @@ function onMouseOverHint(position) {
 
 // search result
 function setSearchResult(datas) {
-    var searchResult = ''
+    var searchResult = `
+    <div class="card-title">Kết quả tìm kiếm</div>
+        <div class="separator-solid"></div>`
     for (let i = 0; i < datas.length; i++) {
         var product = datas[i]['product']
         var category = datas[i]['category']
@@ -112,25 +114,25 @@ function setSearchResult(datas) {
             productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466396/product/default_ss6fj9.jpg"
 
         searchResult += `
-            <div class="row" id="${product['productId']}">
-                <div class="col">
-                    <div class="row">
+            <div class="row align-items-center" id="${product['productId']}">
+                <div class="col-12 col-md-8">
+                    <div class="row align-items-center">
                         <div class="col">
-                          <h1>${product['productName']}</h1>
-                          <p>Loại hàng: ${category['categoryName']}</p>
-                          <p>Địa chỉ: ${location['locationName']}</p>
+                         <div class="card-title"> <h1>${product['productName']}</h1></div>
+                          <p class="mb-1">Loại hàng: ${category['categoryName']}</p>
+                          <p class="mb-1">Địa chỉ: ${location['locationName']}</p>
                         </div>
                         <div class="col">
-                            <img src="${productImage}" style="width: 100px; height: 100px">
+                            <img src="${productImage}" style="width: 100px; height: 100px; border-radius: 10px;">
                         </div>
                     </div>
                   <div id="product_${product['productId']}"></div>
                 </div>
-                <div class="col">  
-                  <button type="button" class="btn btn-outline-success"
+                <div class="col-12 col-md-4">  
+                  <button type="button" class="btn btn-outline-success m-2"
                             onclick="showDetail('product_${product['productId']}', '${encodeURIComponent(JSON.stringify(datas[i]))}')">
                             Xem chi tiết</button>
-                    <button type="button" class="btn btn-outline-success" 
+                    <button type="button" class="btn btn-outline-success m-2" 
                             onclick="addChoice(
                                 '${encodeURIComponent(JSON.stringify(product))}', 
                                 '${encodeURIComponent(JSON.stringify(units))}',
@@ -139,6 +141,7 @@ function setSearchResult(datas) {
 
                 </div>
             </div>
+            <div class="separator-solid"></div>
         `
     }
     $('#dataResult').html(searchResult)
@@ -181,15 +184,15 @@ function addChoice(product, units, locationName, owner) {
     //data choice
     dataChoice += `
         <div class="card mb-3" id="${product['productId']}">
-              <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="${productImage}" class="img-fluid rounded-start">
+              <div class="row align-items-center">
+                    <div class="col-md-4 text-center">
+                        <img src="${productImage}" class="img-fluid rounded-start" style="border-radius:10px;">
                     </div>
                     <div class="col-md-8">
                           <div class="card-body">
                                 <div class="d-flex">
                                     <h5 class="card-title"><span class="badge rounded-pill bg-info text-dark" >${gOrderChoice}</span> <span>${product['productName']}</span></h5>
-                                    <button type="button" class="btn btn-outline-danger" 
+                                    <button type="button" class="btn btn-outline-danger btn-sm ml-3" 
                                             onclick="removeChoice('${product['productId']}')">Hủy</button>
                                 </div>
                                 <p class="card-text">Địa chỉ: ${locationName}</p>
