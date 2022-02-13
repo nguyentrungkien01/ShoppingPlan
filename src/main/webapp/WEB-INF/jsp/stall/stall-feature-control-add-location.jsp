@@ -25,7 +25,6 @@
                                 </div>
                             </div>
 
-
                             <div class="col-6">
                                 <div class="form-group form-show-validation row">
                                     <label for="longitude" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Kinh
@@ -47,8 +46,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                 </div>
                 <div class="card-footer btn-center">
@@ -58,18 +55,25 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-10">
-            <div id="mapStyle">
-                 <button id="streets-v11" type="button" class="btn btn-outline-danger active">Đường phố</button>
-                 <button id="satellite-streets-v11" type="button" class="btn btn-outline-danger">Vệ tinh</button>
-                <button id="outdoors-v11" type="button" class="btn btn-outline-danger">Ngoài trời</button>
-                <button id="light-v10" type="button" class="btn btn-outline-danger">Sáng</button>
-                <button id="dark-v10" type="button" class="btn btn-outline-danger">Tối</button>
-
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Bản đồ</div>
+                </div>
+                <div class="card-body">
+                    <div id="mapStyle" class="text-center mb-3">
+                        <button id="streets-v11" type="button" class="btn btn-outline-success m-2 active">Đường
+                            phố</button>
+                        <button id="satellite-streets-v11" type="button" class="btn btn-outline-success m-2">Vệ
+                            tinh</button>
+                        <button id="outdoors-v11" type="button" class="btn btn-outline-success m-2">Ngoài trời</button>
+                        <button id="light-v10" type="button" class="btn btn-outline-success m-2">Sáng</button>
+                        <button id="dark-v10" type="button" class="btn btn-outline-success m-2">Tối</button>
+                    </div>
+                    <div id="map"></div>
+                </div>
             </div>
-            <div id="map"></div>
         </div>
     </div>
-</div>
 </div>
