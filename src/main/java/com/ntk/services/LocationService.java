@@ -3,6 +3,7 @@ package com.ntk.services;
 import com.ntk.pojos.Location;
 import org.json.simple.JSONObject;
 
+import java.util.List;
 import java.util.Set;
 
 public interface LocationService {
@@ -12,4 +13,5 @@ public interface LocationService {
     JSONObject getLocation(int locationId);
     Set<JSONObject> getLocationsOfCurrentUser(Set<Location> locations);
     Set<JSONObject> getProductLocationCurrentUser();
+    List<JSONObject> getProductsOfLocation(List<Integer> locationIds);
 }

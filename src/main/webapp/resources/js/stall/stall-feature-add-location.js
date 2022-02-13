@@ -76,16 +76,17 @@ function getMap(){
         trackUserLocation: true,
         showUserHeading: true
     })
+
     map.addControl(currentLocation, 'top-left')
 
     map.on("load", function () {
         currentLocation.trigger();
     })
+
     currentLocation.on("geolocate", function(e){
         $("#longitude").val(e.coords.longitude)
         $("#latitude").val(e.coords.latitude)
     })
-
 
     map.on('click', (e) => {
         if (currentMarker.length >= 1) {
@@ -108,9 +109,22 @@ function getMap(){
 
         currentMarker.push(marker)
     })
+    chooseMapStyle(map)
 
 }
+function chooseMapStyle(map) {
+    for (let i = 1; i <= $('#mapStyle').children().length; i++) {
+        $(`#mapStyle button:nth-child(${i})`).click(() => {
+            var button = $(`#mapStyle button:nth-child(${i})`)
+            if (!button.hasClass('.active')) {
+                $('#mapStyle').find('.active').removeClass('active')
+                button.addClass('active')
+                map.setStyle(`mapbox://styles/mapbox/${button.attr('id')}`)
+            }
+        })
+    }
 
+}
 $(document).ready(function(){
     getMap()
     checkAddLocationResult()
