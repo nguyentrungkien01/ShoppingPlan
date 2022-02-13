@@ -60,7 +60,14 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-10">
-            <div id="info"></div>
+            <div id="mapStyle">
+                 <button id="streets-v11" type="button" class="btn btn-outline-danger active">Đường phố</button>
+                 <button id="satellite-streets-v11" type="button" class="btn btn-outline-danger">Vệ tinh</button>
+                <button id="outdoors-v11" type="button" class="btn btn-outline-danger">Ngoài trời</button>
+                <button id="light-v10" type="button" class="btn btn-outline-danger">Sáng</button>
+                <button id="dark-v10" type="button" class="btn btn-outline-danger">Tối</button>
+
+            </div>
             <div id="map"></div>
         </div>
     </div>

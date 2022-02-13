@@ -13,10 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +44,8 @@ public class PlanFeatureController {
     }
 
     @RequestMapping(path = "/plan/route")
-    public String routeFeature() {
+    public String routeFeature(Model model) {
+        model.addAttribute("products", productService.getProductCurrentUser());
         return "route";
     }
 
@@ -98,5 +101,17 @@ public class PlanFeatureController {
                 locationService.getProductLocationCurrentUser(),
                 HttpStatus.OK);
 
+    }
+
+    @PostMapping("/plan/route/api/productName")
+    public ResponseEntity<List<JSONObject>> getProductNames(
+            @RequestBody Map<String, String> params) {
+        String locationId = params.get("locationIds");
+        List<List<String>> lIds = UtilsController.splitStr(locationId,",");
+        List<Integer> lIdRe= new ArrayList<>();
+        lIds.forEach(e->e.forEach(e1->lIdRe.add(Integer.parseInt(UtilsController.decodeBase64(e1)))));
+        return new ResponseEntity<>(
+                locationService.getProductsOfLocation(lIdRe),
+                HttpStatus.OK);
     }
 }

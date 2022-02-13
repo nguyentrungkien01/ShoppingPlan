@@ -7,5 +7,5 @@ import java.util.Set;
 
 public interface LocationRepository {
     boolean addLocation(Location location);
-    Location getLocation(int locationId);
+    Location getLocation(int locationId, String...params);
 }

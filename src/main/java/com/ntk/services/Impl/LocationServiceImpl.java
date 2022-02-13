@@ -54,8 +54,8 @@ public class LocationServiceImpl implements LocationService {
     @Override
     @Transactional
     public Set<Location> getLocationsOfCurrentUser() {
-        return userRepository.getUser( accountRepository.getAccount(
-                UtilsController.getCurrentUsername()).getUser().getUserId(), "locations")
+        return userRepository.getUser(accountRepository.getAccount(
+                        UtilsController.getCurrentUsername()).getUser().getUserId(), "locations")
                 .getLocations();
     }
 
@@ -63,8 +63,8 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     public JSONObject getLocation(int locationId) {
         Location location = locationRepository.getLocation(locationId);
-        JSONObject jsonObject= new JSONObject();
-        if (location!=null) {
+        JSONObject jsonObject = new JSONObject();
+        if (location != null) {
             jsonObject.put("longitude", location.getLongitude());
             jsonObject.put("latitude", location.getLatitude());
         }
@@ -75,7 +75,7 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     public Set<JSONObject> getLocationsOfCurrentUser(Set<Location> locations) {
         Set<JSONObject> jsonObjects = new HashSet<>();
-        locations.forEach(e->{
+        locations.forEach(e -> {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("locationId", UtilsController.encodeBase64(String.valueOf(e.getLocationId())));
             jsonObject.put("locationName", e.getName());
@@ -90,19 +90,48 @@ public class LocationServiceImpl implements LocationService {
         List<UserProduct> userProducts = userProductRepository.getUserProducts(accountRepository.getAccount(
                 UtilsController.getCurrentUsername()).getUser(), "product");
         List<Product> products = new ArrayList<>();
-        userProducts.forEach(e->products.add(productRepository.getProduct(
+        userProducts.forEach(e -> products.add(productRepository.getProduct(
                 e.getProduct().getProductId(), "stall")));
         Set<Stall> stalls = new HashSet<>();
-        products.forEach(e->stalls.add(stallRepository.getStall( e.getStall().getStallId(), "location")));
-        Set<Location> locations= new HashSet<>();
-        stalls.forEach(e->locations.add(e.getLocation()));
+        products.forEach(e -> stalls.add(stallRepository.getStall(e.getStall().getStallId(), "location")));
+        Set<Location> locations = new HashSet<>();
+        stalls.forEach(e -> locations.add(e.getLocation()));
         Set<JSONObject> jsonObjects = new HashSet<>();
-        locations.forEach(e->{
+        locations.forEach(e -> {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", UtilsController.encodeBase64(String.valueOf(e.getLocationId())));
             jsonObject.put("longitude", e.getLongitude());
             jsonObject.put("latitude", e.getLatitude());
             jsonObjects.add(jsonObject);
         });
+        return jsonObjects;
+    }
+
+    @Override
+    @Transactional
+    public List<JSONObject> getProductsOfLocation(List<Integer> locationIds) {
+        List<UserProduct> userProducts = userProductRepository.getUserProducts(accountRepository.getAccount(
+                UtilsController.getCurrentUsername()).getUser(), "product");
+        List<JSONObject> jsonObjects = new ArrayList<>();
+        locationIds.forEach(lId -> {
+            Location location = locationRepository.getLocation(lId, "stalls");
+            Set<String> productNames = new HashSet<>();
+            location.getStalls().forEach(e -> {
+                Stall stall = stallRepository.getStall(e.getStallId(), "products");
+                Set<Product> productsStall = stall.getProducts();
+                userProducts.forEach(e1 -> {
+                    productsStall.forEach(e2 -> {
+                        if (e1.getProduct().getProductId() == e2.getProductId())
+                            productNames.add(e1.getProduct().getName());
+                    });
+
+                });
+            });
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("productName", productNames);
+            jsonObjects.add(jsonObject);
+        });
+
         return jsonObjects;
     }
 }

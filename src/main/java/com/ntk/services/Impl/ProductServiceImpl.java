@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -28,6 +29,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     @Transactional
@@ -167,10 +171,37 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
+    public List<JSONObject> getProductCurrentUser() {
+        List<JSONObject> jsonObjects = new ArrayList<>();
+        List<UserProduct> userProducts = userProductRepository.getUserProducts(accountRepository.getAccount(
+                UtilsController.getCurrentUsername()).getUser(), "product");
+        AtomicInteger count = new AtomicInteger(0);
+        userProducts.forEach(e->{
+            count.getAndIncrement();
+            Product product = productRepository.getProduct(e.getUserProductId().getProductId(),
+                    "category", "stall");
+            Stall stall = stallRepository.getStall(product.getStall().getStallId(), "location");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("orderId", count.get());
+            jsonObject.put("productId", UtilsController.encodeBase64(String.valueOf(product.getProductId())));
+            jsonObject.put("productName", product.getName());
+            jsonObject.put("categoryName",product.getCategory().getName() );
+            jsonObject.put("stallName", stall.getName());
+            jsonObject.put("locationName", stall.getLocation().getName());
+            jsonObjects.add(jsonObject);
+        });
+
+        return jsonObjects;
+    }
+
+    @Override
+    @Transactional
     public JSONObject getAmountProductDetails(String productName) {
         JSONObject jsonObject = new JSONObject();
         List<Product> products= productRepository.getProducts(productName);
         jsonObject.put("amount", products==null?0:products.size());
         return jsonObject;
     }
+
+
 }
