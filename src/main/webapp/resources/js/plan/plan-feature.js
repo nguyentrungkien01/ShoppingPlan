@@ -63,26 +63,32 @@ function getReport(formId) {
         var formData = ''
         for (let i = 0; i < datas.length; i++)
             formData += `
-                  <input type="checkbox" id="${datas[i]['id']}" value="${datas[i]['id']}">
-                  <label for="${datas[i]['id']}">${datas[i]['name']}</label><br>
+            <div class="row align-items-center ml-3 mb-1">
+            <label class="colorinput">
+                <input name="color" type="checkbox" id="${datas[i]['id']}" value="${datas[i]['id']}"
+                    class="colorinput-input">
+                <span class="colorinput-color bg-danger"></span>
+            </label>
+            <label for="${datas[i]['id']}" class="ml-2">${datas[i]['name']}</label>
+        </div>
             `
-        formData += " <input type='submit' value='Xác nhận'>"
+        formData += " <input class='btn btn-warning' type='submit' value='Xác nhận'>"
         $(`#${formId}`).html(formData)
 
     })
 }
 
-function addReport(reportIds){
-    fetch('/ShoppingPlan/plan/api/addReport',{
+function addReport(reportIds) {
+    fetch('/ShoppingPlan/plan/api/addReport', {
         method: 'post',
         body: JSON.stringify({
-            'reportIds':reportIds
+            'reportIds': reportIds
         }),
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(res=>res.json()).then(datas=>{
-        if(datas)
+    }).then(res => res.json()).then(datas => {
+        if (datas)
             swal(
                 'Báo cáo thành công',
                 'Chúc mừng bạn gửi báo cáo thành công!',
@@ -455,6 +461,7 @@ function toggleSearchRouteBtn() {
     else
         $('#searchRoute').show()
 }
+
 function showForm(id) {
     swal({
         title: "Xác nhận báo cáo",
@@ -463,7 +470,7 @@ function showForm(id) {
         dangerMode: true,
     }).then(confirmDelete => {
         if (confirmDelete) {
-            for(let i =0; i<$(`#${id} input`).length-1; i++)
+            for (let i = 0; i < $(`#${id} input`).length - 1; i++)
                 $(`#${id} input`)[i].checked = false
 
             const formReport = document.getElementById(id);
@@ -471,7 +478,7 @@ function showForm(id) {
                 formReport.hidden = false
                 $(document).on('submit', `#${id}`, function (event) {
                     var reportResult = ''
-                    for (let i = 0; i < $(`#${id} input`).length-1 ; i++) {
+                    for (let i = 0; i < $(`#${id} input`).length - 1; i++) {
                         let inputObj = $(`#${id} input`)[i];
                         if (inputObj.checked)
                             reportResult += `${inputObj.value},`

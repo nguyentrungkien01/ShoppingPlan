@@ -1,13 +1,13 @@
 function getPhoneNumber() {
-    fetch('/ShoppingPlan/info/api/phoneNumberData',).then(res => res.json()).then(datas => {
+    fetch('/ShoppingPlan/info/api/phoneNumberData', ).then(res => res.json()).then(datas => {
         var phoneNumberList = datas['phoneNumbers']
         var phoneDatas = '<ul class="list-group" id="phoneNumbers">'
         for (let i = 0; i < phoneNumberList.length; i++) {
             phoneDatas += `
-                  <li class="list-group-item " style="margin:auto" id="${phoneNumberList[i]['id']}">
-                        ${phoneNumberList[i]['name']}
-                     <a href="javascript:;" onclick="showInput(phoneNumberId='${phoneNumberList[i]['id']}', phoneNumber='${phoneNumberList[i]['name']}')" > <i class="fa fa-pencil text-warning"></i> </a>
-                     <a href="javascript:;" onclick="deletePhoneNumber('${phoneNumberList[i]['id']}')"  > <i class="fa fa-trash text-danger"></i> </a>
+                  <li class="list-group-item td-icon" style="margin:auto" id="${phoneNumberList[i]['id']}">
+                      <span style="padding: 5px 5px 5px 0;">  ${phoneNumberList[i]['name']}</span>
+                     <a href="javascript:;" onclick="showInput(phoneNumberId='${phoneNumberList[i]['id']}', phoneNumber='${phoneNumberList[i]['name']}')" > <i class="fa fa-pencil ml-1"></i> </a>
+                     <a href="javascript:;" onclick="deletePhoneNumber('${phoneNumberList[i]['id']}')"> <i class="fa fa-trash ml-1"></i> </a>
                  </li>
                 `
         }
@@ -17,8 +17,8 @@ function getPhoneNumber() {
     })
 }
 
-function deletePhoneNumber(phoneNumberId){
-    if($('#phoneNumbers').children().length===1) {
+function deletePhoneNumber(phoneNumberId) {
+    if ($('#phoneNumbers').children().length === 1) {
         swal({
             title: "Thông báo",
             text: "Bạn không thể xóa vì chủ sở hữu phải có ít nhất 1 số điện thoại",
@@ -51,8 +51,7 @@ function deletePhoneNumber(phoneNumberId){
                         'success'
                     )
                     getPhoneNumber()
-                }
-                else
+                } else
                     swal(
                         'Xóa không thành công',
                         'Đã xảy ra sự cố trong quá trình xóa. Vui lòng thử lại sau!',
@@ -62,25 +61,26 @@ function deletePhoneNumber(phoneNumberId){
         }
     })
 }
-function addPhoneNumber( phoneNumber){
+
+function addPhoneNumber(phoneNumber) {
     fetch('/ShoppingPlan/info/api/addPhoneNumber', {
         method: 'post',
         body: JSON.stringify({
-            'phoneNumber':phoneNumber
+            'phoneNumber': phoneNumber
         }),
-        headers:{
-            'Content-Type':'application/json'
+        headers: {
+            'Content-Type': 'application/json'
         }
-    }).then(res=>res.json()).then(datas=>{
+    }).then(res => res.json()).then(datas => {
         $('#inputPhoneNumber').val('')
-        if(datas) {
+        if (datas) {
             swal(
                 'Thêm thành công',
                 'Chúc mừng bạn thêm số điện thoại thành công!',
                 'success'
             )
             getPhoneNumber()
-        }else
+        } else
             swal(
                 'Thêm không thành công',
                 'Đã xảy ra sự cố trong quá trình thêm. Vui lòng thử lại sau!',
@@ -89,27 +89,26 @@ function addPhoneNumber( phoneNumber){
     })
 }
 
-function editPhoneNumber(phoneNumberId, phoneNumber){
+function editPhoneNumber(phoneNumberId, phoneNumber) {
     fetch('/ShoppingPlan/info/api/editPhoneNumber', {
         method: 'post',
         body: JSON.stringify({
-            'phoneNumberId':phoneNumberId,
-            'phoneNumberName':phoneNumber
+            'phoneNumberId': phoneNumberId,
+            'phoneNumberName': phoneNumber
         }),
-        headers:{
-            'Content-Type':'application/json'
+        headers: {
+            'Content-Type': 'application/json'
         }
-    }).then(res=>res.json()).then(datas=>{
+    }).then(res => res.json()).then(datas => {
         $('#inputPhoneNumber').val('')
-        if(datas){
+        if (datas) {
             swal(
                 'Sửa thành công',
                 'Chúc mừng bạn sửa số điện thoại thành công!',
                 'success'
             )
             getPhoneNumber()
-        }
-        else{
+        } else {
             swal(
                 'Sửa không thành công',
                 'Đã xảy ra sự cố trong quá trình sửa. Vui lòng thử lại sau!',
@@ -118,29 +117,29 @@ function editPhoneNumber(phoneNumberId, phoneNumber){
         }
     })
 }
-function checkInputPhoneNumber(){
+
+function checkInputPhoneNumber() {
     var phoneNumber = $('#inputPhoneNumber').val()
-    return !isNaN(phoneNumber) && phoneNumber.length===10;
+    return !isNaN(phoneNumber) && phoneNumber.length === 10;
 
 }
 
-function showInput(phoneNumberId = null, phoneNumber=null) {
+function showInput(phoneNumberId = null, phoneNumber = null) {
     $('#inputPhoneNumber').show()
     $('#confirm').show()
 
-    if(phoneNumber!=null)
+    if (phoneNumber != null)
         $('#inputPhoneNumber').val(phoneNumber)
 
     $('#confirm').click(function () {
-        if(checkInputPhoneNumber()) {
+        if (checkInputPhoneNumber()) {
             if (phoneNumberId != null) {
                 console.info($('#inputPhoneNumber').val())
                 editPhoneNumber(phoneNumberId, $('#inputPhoneNumber').val())
-            }
-            else
+            } else
                 addPhoneNumber($('#inputPhoneNumber').val())
 
-        }else{
+        } else {
             swal(
                 'Thao tác thất bại',
                 'Số điện thoại phải có chiều dài là 10 bao gồm các ký tự (0-9)',
@@ -151,11 +150,11 @@ function showInput(phoneNumberId = null, phoneNumber=null) {
         $('#confirm').hide()
     })
 }
-$(document).ready(function(){
+$(document).ready(function () {
     getPhoneNumber()
     $('#inputPhoneNumber').hide()
     $('#confirm').hide()
-    $('#addPhoneNumber').click(function(){
+    $('#addPhoneNumber').click(function () {
         showInput()
     })
 
