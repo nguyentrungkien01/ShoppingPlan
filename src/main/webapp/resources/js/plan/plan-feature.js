@@ -58,6 +58,44 @@ function getProductAmount() {
     })
 }
 
+function getReport(formId) {
+    fetch('/ShoppingPlan/plan/api/reportInfo').then(res => res.json()).then(datas => {
+        var formData = ''
+        for (let i = 0; i < datas.length; i++)
+            formData += `
+                  <input type="checkbox" id="${datas[i]['id']}" value="${datas[i]['id']}">
+                  <label for="${datas[i]['id']}">${datas[i]['name']}</label><br>
+            `
+        formData += " <input type='submit' value='Xác nhận'>"
+        $(`#${formId}`).html(formData)
+
+    })
+}
+
+function addReport(reportIds){
+    fetch('/ShoppingPlan/plan/api/addReport',{
+        method: 'post',
+        body: JSON.stringify({
+            'reportIds':reportIds
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res=>res.json()).then(datas=>{
+        if(datas)
+            swal(
+                'Báo cáo thành công',
+                'Chúc mừng bạn gửi báo cáo thành công!',
+                'success'
+            )
+        else
+            swal(
+                'Báo cáo thất bại',
+                'Đã xảy ra sự cố trong quá trình gửi báo cáo! Vui lòng thử lại sau',
+                'error'
+            )
+    })
+}
 
 function setActiveDataResult() {
     for (let i = 3; i <= $("#dataResult").children().length; i += 2) {
@@ -262,7 +300,11 @@ function showDetail(detailId, productDetail) {
         newDetail = `
                 <h1 class="card-title text-center m-4 pt-2">Chi tiết sản phẩm</h1>
                 <h1 class="card-title font-weight-bold">Chủ quầy hàng</h1>
-                <p><span class="font-weight-bold">Tên:</span> ${user['userLastName']} ${user['userFirstName']} <button type="button" class="btn btn-outline-danger ml-2 btn-sm">Báo cáo</button></p>
+                <p><span class="font-weight-bold">Tên:</span> ${user['userLastName']} ${user['userFirstName']} 
+                    <button type="button" class="btn btn-outline-danger ml-2 btn-sm" onclick="showForm('form_${detailId.substring(0, detailId.length-2)}')">Báo cáo</button> 
+                    <form id="form_${detailId.substring(0, detailId.length-2)}" hidden="true">
+                    </form>
+                </p>
             
                 <a href="${userFacebookLink}">Địa chỉ facebook</a>
                 <div class="separator-solid"></div>
@@ -295,6 +337,7 @@ function showDetail(detailId, productDetail) {
         button.removeClass('active')
     }
     detail.innerHTML = newDetail
+    getReport(`form_${detailId.substring(0, detailId.length-2)}`)
 }
 
 function removeChoice(productId) {
@@ -412,8 +455,42 @@ function toggleSearchRouteBtn() {
     else
         $('#searchRoute').show()
 }
+function showForm(id) {
+    swal({
+        title: "Xác nhận báo cáo",
+        text: "Bạn có chắc chắn muốn báo cáo chủ cửa hàng này không?!",
+        icon: "warning",
+        dangerMode: true,
+    }).then(confirmDelete => {
+        if (confirmDelete) {
+            for(let i =0; i<$(`#${id} input`).length-1; i++)
+                $(`#${id} input`)[i].checked = false
+
+            const formReport = document.getElementById(id);
+            if (formReport.hidden) {
+                formReport.hidden = false
+                $(document).on('submit', `#${id}`, function (event) {
+                    var reportResult = ''
+                    for (let i = 0; i < $(`#${id} input`).length-1 ; i++) {
+                        let inputObj = $(`#${id} input`)[i];
+                        if (inputObj.checked)
+                            reportResult += `${inputObj.value},`
+                    }
+                    if (reportResult.length > 0) {
+                        reportResult = reportResult.substring(0, reportResult.length - 1)
+                        addReport(reportResult)
+                    }
+                    formReport.hidden = true
+                    event.preventDefault()
+                })
+            } else
+                formReport.hidden = true
+        }
+    })
+}
 
 $(document).ready(function () {
+
     toggleSearchRouteBtn()
 
     $('#amountChoice').text(gOrderChoice)

@@ -2,6 +2,7 @@ package com.ntk.pojos;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -18,14 +19,17 @@ public class User implements Serializable {
     @Column(name = "last_name", length = 50, nullable = false, columnDefinition = "nvarchar")
     private String lastName;
 
-    @Column(name="sex")
+    @Column(name = "sex")
     private boolean sex;
 
-    @Column(name="id_card", length = 12, nullable = false, unique = true)
+    @Column(name = "id_card", length = 12, nullable = false, unique = true)
     private String idCard;
 
-    @Column(name="facebook_link", length = 100)
+    @Column(name = "facebook_link", length = 100)
     private String facebookLink;
+
+    @Column(name = "date_of_birth", nullable = false)
+    private Date dateOfBirth;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
@@ -129,5 +133,13 @@ public class User implements Serializable {
 
     public void setLocations(Set<Location> locations) {
         this.locations = locations;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

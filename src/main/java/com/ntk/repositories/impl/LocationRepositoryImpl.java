@@ -35,9 +35,10 @@ public class LocationRepositoryImpl implements LocationRepository {
     private void fetchLocations(Root<Location> root, String... params){
         if (params != null && params.length > 0)
             Arrays.stream(params).forEach(e -> {
-                if (Objects.equals(e, "stalls") ||
-                        Objects.equals(e, "user"))
+                if (Objects.equals(e, "user"))
                     root.fetch(e);
+                if(Objects.equals(e, "stalls"))
+                    root.fetch(e, JoinType.LEFT);
             });
     }
     @Override

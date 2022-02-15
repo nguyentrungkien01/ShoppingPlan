@@ -1,27 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <c:if test="${param.error!=null}">
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="swal2-popup" style="display: grid;">
-            <div class="swal2-icon swal2-error swal2-icon-show" style="display: flex;"><span class="swal2-x-mark">
-                    <span class="swal2-x-mark-line-left"></span>
-                    <span class="swal2-x-mark-line-right"></span>
-                </span>
-            </div>
-            <h2 class="swal2-title" id="swal2-title" style="display: block;">Đăng nhập thất bại</h2>
-            <div class="swal2-html-container" id="swal2-html-container" style="display: block;">Sai tên đăng nhập hoặc mật khẩu!</div>
-            <div class="swal2-actions" style="display: flex;">
-                <div class="swal2-loader"></div>
-                <button type="button" class="swal2-confirm swal2-styled" aria-label="" style="display: inline-block;"
-                    data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <script>
+         swal(
+            'Đăng nhập thất bại',
+            'Thông tin bị sai hoặc tài khoản của bạn đã bị khóa do vi phạm nội quy chung. Vui lòng kiểm tra lại!',
+            'error'
+            )
+    </script>
 </c:if >
 
 <div class="auth-wrapper">

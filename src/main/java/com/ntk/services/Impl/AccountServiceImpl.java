@@ -4,6 +4,7 @@ package com.ntk.services.Impl;
 
 import com.ntk.pojos.Account;
 import com.ntk.pojos.Role;
+import com.ntk.repositories.AccountReportRepository;
 import com.ntk.repositories.AccountRepository;
 import com.ntk.services.AccountService;
 import org.json.simple.JSONObject;
@@ -32,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @Override
     @Transactional
     public JSONObject getAccount(String username) {
@@ -49,6 +51,12 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public Account getAccountObj(String username) {
         return accountRepository.getAccount(username);
+    }
+
+    @Override
+    @Transactional
+    public Account getAccountObj(int accountId) {
+        return accountRepository.getAccount(accountId);
     }
 
     @Override
@@ -88,13 +96,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, IllegalAccessError{
         Account account  = accountRepository.getAccount(username);
         if(account==null)
             throw new UsernameNotFoundException("Tài khoản không tồn tại");
+
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(account.getRole().getName()));
         return new org.springframework.security.core.userdetails.User(
-                account.getUsername(), account.getPassword(), authorities);
+                account.getUsername(), account.getPassword(), !(account.getIsActive()==0),
+                true, true,!(account.getIsActive()==0), authorities);
     }
 }

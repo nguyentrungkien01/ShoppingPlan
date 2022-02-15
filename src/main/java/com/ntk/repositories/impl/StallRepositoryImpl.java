@@ -152,21 +152,22 @@ public class StallRepositoryImpl implements StallRepository {
         }
     }
 
+    private void fetchStall(Root<Stall> root, String...params) {
+        if (params != null && params.length > 0)
+            Arrays.stream(params).forEach(e -> {
+                if (Objects.equals(e, "products"))
+                    root.fetch(e, JoinType.LEFT);
+                if (Objects.equals(e, "location") || Objects.equals(e, "user"))
+                    root.fetch(e);
+            });
+    }
     @Override
     public Stall getStall(int stallId, String... params) {
         Session s = Objects.requireNonNull(localSessionFactoryBean.getObject()).getCurrentSession();
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<Stall> criteriaQuery = criteriaBuilder.createQuery(Stall.class);
         Root<Stall> root = criteriaQuery.from(Stall.class);
-        if (params != null && params.length > 0)
-            Arrays.stream(params).forEach(e -> {
-                if (Objects.equals(e, "products"))
-                    root.fetch("products", JoinType.LEFT);
-                if (Objects.equals(e, "location"))
-                    root.fetch("location");
-                if (Objects.equals(e, "user"))
-                    root.fetch("user");
-            });
+        fetchStall(root,params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.equal(root.get("stallId").as(Integer.class), stallId);
         List<Stall> stalls = s.createQuery(criteriaQuery.where(p)).getResultList();

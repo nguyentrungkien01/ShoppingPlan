@@ -192,7 +192,7 @@ function setStallInfo(datas){
 }
 
 function initData() {
-    gLimit = 4
+    gLimit = 9
     setIndexPagination()
     getStallAmount()
     getStallInfo()

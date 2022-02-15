@@ -29,7 +29,22 @@ public class AccountRepositoryImpl implements AccountRepository {
         CriteriaQuery<Account> criteriaQuery = criteriaBuilder.createQuery(Account.class);
         Root<Account> root = criteriaQuery.from(Account.class);
         criteriaQuery.select(root);
-        Predicate p = criteriaBuilder.equal(root.get("username"), username.trim());
+        Predicate p = criteriaBuilder.equal(root.get("username").as(String.class), username.trim());
+        List<Account> accounts= s.createQuery(criteriaQuery.where(p)).getResultList();
+        if(accounts.isEmpty())
+            return null;
+
+        return accounts.get(0);
+    }
+
+    @Override
+    public Account getAccount(int accountId) {
+        Session s = Objects.requireNonNull(localSessionFactoryBean.getObject()).getCurrentSession();
+        CriteriaBuilder criteriaBuilder= s.getCriteriaBuilder();
+        CriteriaQuery<Account> criteriaQuery = criteriaBuilder.createQuery(Account.class);
+        Root<Account> root = criteriaQuery.from(Account.class);
+        criteriaQuery.select(root);
+        Predicate p = criteriaBuilder.equal(root.get("accountId").as(String.class), accountId);
         List<Account> accounts= s.createQuery(criteriaQuery.where(p)).getResultList();
         if(accounts.isEmpty())
             return null;

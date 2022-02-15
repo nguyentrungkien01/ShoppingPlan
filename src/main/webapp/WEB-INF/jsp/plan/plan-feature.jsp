@@ -48,12 +48,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <div id="dataChoice"></div>
                             <form method="post" action="<c:url value='/plan/route' />" id="planControl">
                                 <div class="form-group btn-center">
                                     <button type="submit" class="btn btn-primary " id="searchRoute">Tìm đường</button>
                                 </div>
                             </form>
+                            <div id="dataChoice"></div>
                         </div>
                     </div>
                 </div>

@@ -49,11 +49,10 @@ public class UserRepositoryImpl implements UserRepository {
         Root<User> root = criteriaQuery.from(User.class);
         if(params!=null && params.length>0)
             Arrays.stream(params).forEach(e -> {
-                if (Objects.equals(e, "locations") ||
-                        Objects.equals(e, "stalls") ||
-                        Objects.equals(e, "phoneNumbers"))
-                    root.fetch(e);
-                if(Objects.equals(e, "userProducts"))
+                if(Objects.equals(e, "userProducts") ||
+                        Objects.equals(e, "phoneNumbers")||
+                        Objects.equals(e, "locations") ||
+                        Objects.equals(e, "stalls"))
                     root.fetch(e, JoinType.LEFT);
             });
         criteriaQuery.select(root);
