@@ -46,7 +46,6 @@ function setActiveUnitType(unitTypeId){
         if(button.attr("id").includes(unitTypeId))
             button.addClass("active")
     }
-
 }
 
 function setActiveUnitData() {
@@ -64,10 +63,10 @@ function setActiveUnitData() {
 }
 
 
-function setUnitTypePanel(datas){
+function setUnitTypePanel(datas) {
     let buttons = '';
-    for(let i =0 ; i<datas.length; i++)
-        buttons+=`
+    for (let i = 0; i < datas.length; i++)
+        buttons += `
             <button type="button" class="btn btn-outline-success"  id ="${datas[i]['unitTypeId']}"
                 onclick="getUnitData('${datas[i]['unitTypeId']}')">${datas[i]['unitTypeName']}</button>
        `

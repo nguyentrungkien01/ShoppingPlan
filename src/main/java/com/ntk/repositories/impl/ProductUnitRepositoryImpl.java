@@ -46,10 +46,8 @@ public class ProductUnitRepositoryImpl implements ProductUnitRepository {
         Root<ProductUnit> root = criteriaQuery.from(ProductUnit.class);
         if (params != null && params.length > 0)
             Arrays.stream(params).forEach(e -> {
-                if (Objects.equals(e, "product"))
-                    root.fetch("product");
-                if (Objects.equals(e, "unit"))
-                    root.fetch("unit");
+                if (Objects.equals(e, "product") || Objects.equals(e, "unit"))
+                    root.fetch(e);
             });
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.equal(root.get("productUnitId").as(ProductUnitId.class), productUnitId);

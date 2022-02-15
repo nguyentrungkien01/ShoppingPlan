@@ -55,10 +55,9 @@ public class ProductRepositoryImpl implements ProductRepository {
         if (params != null && params.length > 0)
             Arrays.stream(params).forEach(e -> {
                 if (Objects.equals(e, "category") ||
-                        Objects.equals(e, "stall") ||
-                        Objects.equals(e, "productUnits"))
+                        Objects.equals(e, "stall"))
                     root.fetch(e);
-                if (Objects.equals(e, "userProducts"))
+                if (Objects.equals(e, "userProducts") || Objects.equals(e, "productUnits"))
                     root.fetch(e, JoinType.LEFT);
             });
     }

@@ -97,4 +97,18 @@
         <put-attribute name="ref" value="/WEB-INF/ref/plan/route.jsp"/>
         <put-attribute name="content" value="/WEB-INF/jsp/plan/route.jsp"/>
     </definition>
+
+    <!-- Change password -->
+    <definition name="change-password" extends="base">
+        <put-attribute name="title" value="Đổi mật khẩu"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/account/change-password.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/account/change-password.jsp"/>
+    </definition>
+
+    <!-- View info -->
+    <definition name="info" extends="base">
+        <put-attribute name="title" value="Thông tin tài khoản"/>
+        <put-attribute name="ref" value="/WEB-INF/ref/account/info.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/account/info.jsp"/>
+    </definition>
 </tiles-definitions>

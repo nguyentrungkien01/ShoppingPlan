@@ -46,7 +46,7 @@ public class UserProductRepositoryImpl implements UserProductRepository {
         if (params != null && params.length > 0)
             Arrays.stream(params).forEach(e -> {
                 if (Objects.equals(e, "product") ||
-                        Objects.equals(e, "user"));
+                        Objects.equals(e, "user"))
                 root.fetch(e);
             });
     }

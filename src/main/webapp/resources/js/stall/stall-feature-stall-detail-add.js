@@ -106,7 +106,7 @@ function addUnitDataResult(unitId, unitName) {
                 <div class="form-group">
                     <div class="row flex-nowrap align-items-center justify-content-center">
                         <div style="width:200px">
-                            <input type="number" class="form-control" value="100010"
+                            <input type="number" class="form-control" value="1000"
                                 name="unitPrice${gOrderIdUnit}" required/>
                         </div>
                         <p style="width:30px; margin-bottom:unset;padding-left: 15px;">VNĐ</p>

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface AccountService extends UserDetailsService {
     JSONObject getAccount(String username);
     Account getAccountObj(String username);
+    Account getAccountObj(int accountId);
     boolean addAccount(Account user);
     boolean updateAccount(Account user);
     boolean deleteAccount(Account user);

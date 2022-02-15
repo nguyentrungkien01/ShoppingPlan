@@ -11,4 +11,6 @@ public interface UserService {
     User getUser(String idCard);
     User getCurrentUser();
     User getUserObj(int userId, String... params);
+    JSONObject getCurrentUserDetail();
+    JSONObject getCurrentUserPhoneNumber();
 }

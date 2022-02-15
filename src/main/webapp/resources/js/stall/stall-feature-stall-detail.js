@@ -198,7 +198,7 @@ function setProductListInfo(datas){
 
 function initData() {
     gStallId= parseInt(window.atob(new URLSearchParams(window.location.search).get("stallId")))
-    gLimit = 1
+    gLimit = 10
     setIndexPagination()
     getProductListAmount()
     getProductListInfo()

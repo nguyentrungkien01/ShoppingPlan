@@ -1,12 +1,7 @@
 package com.ntk.controllers;
 
-import com.ntk.pojos.User;
-import com.ntk.pojos.UserProduct;
-import com.ntk.pojos.UserProductId;
-import com.ntk.services.LocationService;
-import com.ntk.services.ProductService;
-import com.ntk.services.UserProductService;
-import com.ntk.services.UserService;
+import com.ntk.pojos.*;
+import com.ntk.services.*;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Controller
 public class PlanFeatureController {
@@ -37,6 +33,15 @@ public class PlanFeatureController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private ReportService reportService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private AccountReportService accountReportService;
 
     @RequestMapping(path = "/plan")
     public String planFeature() {
@@ -107,11 +112,58 @@ public class PlanFeatureController {
     public ResponseEntity<List<JSONObject>> getProductNames(
             @RequestBody Map<String, String> params) {
         String locationId = params.get("locationIds");
-        List<List<String>> lIds = UtilsController.splitStr(locationId,",");
-        List<Integer> lIdRe= new ArrayList<>();
-        lIds.forEach(e->e.forEach(e1->lIdRe.add(Integer.parseInt(UtilsController.decodeBase64(e1)))));
+        List<List<String>> lIds = UtilsController.splitStr(locationId, ",");
+        List<Integer> lIdRe = new ArrayList<>();
+        lIds.forEach(e -> e.forEach(e1 -> lIdRe.add(Integer.parseInt(UtilsController.decodeBase64(e1)))));
         return new ResponseEntity<>(
                 locationService.getProductsOfLocation(lIdRe),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/plan/api/reportInfo")
+    public ResponseEntity<List<JSONObject>> getReports() {
+        return new ResponseEntity<>(
+                reportService.getReports(),
+                HttpStatus.OK);
+    }
+
+    @PostMapping("/plan/api/addReport")
+    public ResponseEntity<Boolean> addReport(
+            @RequestBody Map<String, String> params) {
+        List<List<String>> reportIds = UtilsController.splitStr(params.get("reportIds"), ",");
+        AtomicBoolean result = new AtomicBoolean(true);
+        int accountId = accountService.getAccountObj(UtilsController.getCurrentUsername()).getAccountId();
+        reportIds.forEach(e -> e.forEach(e1 -> {
+            int reportId = Integer.parseInt(UtilsController.decodeBase64(e1));
+            AccountReportId accountReportId = new AccountReportId();
+            accountReportId.setReportId(reportId);
+            accountReportId.setAccountId(accountId);
+            AccountReport accountReport = accountReportService.getAccountReport(accountReportId);
+            boolean res;
+
+            if (accountReport == null) {
+                accountReport = new AccountReport();
+                accountReport.setAccountReportId(accountReportId);
+                res = accountReportService.addAccountReport(accountReport);
+            } else {
+                accountReport.setAmount(accountReport.getAmount() + 1);
+                res = accountReportService.updateAccountReport(accountReport);
+            }
+
+            if (res) {
+                Account account = accountService.getAccountObj(accountId);
+                if (accountReportService.countAccountReport(account) > 5000 &&
+                        account.getIsActive() == 1) {
+                    account.setIsActive((byte) 0);
+                    accountService.updateAccount(account);
+                }
+            }
+
+            if (!res)
+                result.set(false);
+        }));
+        return new ResponseEntity<>(
+                result.get(),
                 HttpStatus.OK);
     }
 }

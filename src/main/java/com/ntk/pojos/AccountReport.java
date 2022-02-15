@@ -10,8 +10,8 @@ public class AccountReport implements Serializable {
     @EmbeddedId
     private AccountReportId accountReportId;
 
-    @Column(name = "report_date")
-    private Date reportDate;
+    @Column(name = "amount", nullable = false)
+    private int amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", insertable=false, updatable=false)
@@ -29,12 +29,12 @@ public class AccountReport implements Serializable {
         this.accountReportId = accountReportId;
     }
 
-    public Date getReportDate() {
-        return reportDate;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public Account getAccount() {

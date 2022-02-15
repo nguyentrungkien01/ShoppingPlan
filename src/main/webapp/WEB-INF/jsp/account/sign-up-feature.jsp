@@ -26,7 +26,7 @@
               <label for="last_name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Họ và tên đệm <span
                   class="required-label">*</span></label>
               <div class="col-lg-8 col-md-9 col-sm-8">
-                <input type="text" class="form-control" id="last_name" name="last_name" maxlength="20"
+                <input type="text" class="form-control" id="last_name" name="lastName" maxlength="20"
                   placeholder="Nhập họ và tên đệm..." required pattern=".{1,20}"
                   oninvalid="this.setCustomValidity('Chiều dài từ 1-20 ký tự')" oninput="this.setCustomValidity('')">
               </div>
@@ -36,7 +36,7 @@
               <label for="first_name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Tên <span
                   class="required-label">*</span></label>
               <div class="col-lg-8 col-md-9 col-sm-8">
-                <input type="text" class="form-control" id="first_name" name="first_name" maxlength="50"
+                <input type="text" class="form-control" id="first_name" name="firstName" maxlength="50"
                   placeholder="Nhập tên..." required pattern=".{1,50}" title="Chiều dài từ 1-50 ký tự"
                   oninvalid="this.setCustomValidity('Chiều dài từ 1-50 ký tự')" oninput="this.setCustomValidity('')">
               </div>
@@ -48,6 +48,14 @@
               <div class="col-lg-8 col-md-9 col-sm-8">
                 <input type="text" class="form-control" id="idCard" name="idCard"
                   placeholder="Nhập căn cước công dân..." required>
+              </div>
+            </div>
+            <div class="form-group form-show-validation row">
+              <label for="idCard" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Số điện thoại<span
+                  class="required-label">*</span></label>
+              <div class="col-lg-8 col-md-9 col-sm-8">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                  placeholder="Nhập số điện thoại..." required>
               </div>
             </div>
 
@@ -67,7 +75,13 @@
                 </div>
               </div>
             </div>
-
+            <div class="form-group form-show-validation row">
+              <label for="idCard" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Ngày sinh<span
+                  class="required-label">*</span></label>
+              <div class="col-lg-8 col-md-9 col-sm-8">
+                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+              </div>
+            </div>
             <div class="form-group form-show-validation row">
               <label for="facebookLink" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Facebook cá
                 nhân</label>

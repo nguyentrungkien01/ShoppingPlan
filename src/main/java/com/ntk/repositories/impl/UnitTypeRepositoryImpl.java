@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -21,22 +18,26 @@ public class UnitTypeRepositoryImpl implements UnitTypeRepository {
     @Autowired
     private LocalSessionFactoryBean localSessionFactoryBean;
 
+    private void fetchUnitType(Root<UnitType> root, String...params){
+        if(params!=null && params.length>0)
+            Arrays.stream(params).forEach(e->{
+                if(Objects.equals(e, "units"))
+                    root.fetch(e, JoinType.LEFT);
+            });
+    }
+
     @Override
     public UnitType getUnitType(int unitTypeId, String... params) {
         Session s = Objects.requireNonNull(localSessionFactoryBean.getObject()).getCurrentSession();
         CriteriaBuilder criteriaBuilder = s.getCriteriaBuilder();
         CriteriaQuery<UnitType> criteriaQuery = criteriaBuilder.createQuery(UnitType.class);
         Root<UnitType> root = criteriaQuery.from(UnitType.class);
-        if(params!=null && params.length>0)
-            Arrays.stream(params).forEach(e->{
-                if(Objects.equals(e, "units"))
-                    root.fetch("units");
-            });
+        fetchUnitType(root, params);
         criteriaQuery.select(root);
         Predicate p = criteriaBuilder.equal(root.get("unitTypeId").as(Integer.class),
                 unitTypeId);
         List<UnitType> unitTypes = s.createQuery(criteriaQuery.where(p)).getResultList();
-        if(unitTypes.isEmpty())
+        if (unitTypes.isEmpty())
             return null;
         return unitTypes.get(0);
     }

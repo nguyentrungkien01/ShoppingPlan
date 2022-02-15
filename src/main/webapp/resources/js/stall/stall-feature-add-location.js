@@ -1,12 +1,3 @@
-// const gAccessToken ='pk.eyJ1Ijoic2hvcHBpbmdwbGFucHJvamVjdCIsImEiOiJja3o5Ync5ZWQxcG0xMnJwNGd1OHhyNzlzIn0.QFSOZ7PTOvoyGDY4oHfyaw'
-//
-// function test(searchText){
-//     fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?access_token=${gAccessToken}&country=vn&language=vi&type=address`)
-//         .then(res=>res.json()).then(datas=>{
-//         console.info(datas)
-//     })
-// }
-// test('lái Thiêu, Thuận An, Bình Dương')
 
 function getCookie(cname) {
     let name = cname + "=";

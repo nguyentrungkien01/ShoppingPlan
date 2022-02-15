@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="main-header">
@@ -80,16 +81,16 @@
 									</div>
 									<div class="u-text">
 										<h4>
-										user name
+										${pageContext.request.userPrincipal.name}
 										</h4>
-										<a href="javascript:;" class="btn btn-xs btn-secondary btn-sm">Thông tin
+										<a href="<c:url value='/info'/>" class="btn btn-xs btn-secondary btn-sm">Thông tin
 											cá nhân</a>
 									</div>
 								</div>
 							</li>
 							<li>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="javascript:;">Đổi mật khẩu</a>
+								<a class="dropdown-item" href="<c:url value='/change-password'/>">Đổi mật khẩu</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<c:url value='/sign-out'/>">Đăng xuất</a>
 							</li>
