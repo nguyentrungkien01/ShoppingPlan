@@ -34,7 +34,7 @@
 					<div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
 						<div class="quick-actions-header">
 							<span class="title mb-1">Lựa chọn nhanh</span>
-							<span class="subtitle op-8">Shortcuts</span>
+							<span class="subtitle op-8">Quick choice</span>
 						</div>
 						<div>
 							<div class="quick-actions-items">
@@ -45,18 +45,12 @@
 											<span class="text">Thêm quầy hàng</span>
 										</div>
 									</a>
-<%-- 									<a class="col-6 col-md-6 p-0" href="/admin/reportview"> --%>
-<%-- 										<div class="quick-actions-item"> --%>
-<%-- 											<i class="flaticon-database"></i> --%>
-<%-- 											<span class="text">Báo cáo</span> --%>
-<%-- 										</div> --%>
-<%-- 									</a> --%>
-<%-- 									<a class="col-12 p-0" href="/admin/rulemodel"> --%>
-<%-- 										<div class="quick-actions-item"> --%>
-<%-- 											<i class="flaticon-database"></i> --%>
-<%-- 											<span class="text">Quy định chung</span> --%>
-<%-- 										</div> --%>
-<%-- 									</a> --%>
+									<a class="col-6 col-md-6 p-0" href="<c:url value = '/rule' />">
+										<div class="quick-actions-item">
+											<i class="flaticon-database"></i>
+											<span class="text">Quy định chung</span>
+										</div>
+									</a>
 								</div>
 							</div>
 						</div>

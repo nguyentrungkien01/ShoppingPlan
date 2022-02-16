@@ -6,8 +6,9 @@
     <div class="row">
       <div class="col-md-3 col-sm-6">
         <div class="hc-logo">
-          <a href="index.html">
-            <img src="<c:url value = '/css/logo.svg' />" alt="logo" style="width: 80px; height: auto" />
+          <a href="<c:url value='/' />">
+            <img src="https://res.cloudinary.com/nguyentrungkien/image/upload/v1644976741/shopping-removebg-preview_obgjuq.png" alt="logo"
+            style="width: 80px; height: auto" />
           </a>
         </div>
       </div>

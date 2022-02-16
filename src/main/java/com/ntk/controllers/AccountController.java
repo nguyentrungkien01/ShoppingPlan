@@ -35,6 +35,11 @@ public class AccountController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @RequestMapping(path = "/rule")
+    public String viewRule() {
+        return "rule";
+    }
+
     @RequestMapping(path = "/change-password")
     public String changePassword() {
         return "change-password";
