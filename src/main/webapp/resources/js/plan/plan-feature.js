@@ -64,17 +64,16 @@ function getReport(formId) {
         for (let i = 0; i < datas.length; i++)
             formData += `
             <div class="row align-items-center ml-3 mb-1">
-            <label class="colorinput">
-                <input name="color" type="checkbox" id="${datas[i]['id']}" value="${datas[i]['id']}"
-                    class="colorinput-input">
-                <span class="colorinput-color bg-danger"></span>
-            </label>
-            <label for="${datas[i]['id']}" class="ml-2">${datas[i]['name']}</label>
-        </div>
+                <label class="colorinput">
+                    <input name="color" type="checkbox" id="${datas[i]['id']}" value="${datas[i]['id']}"
+                        class="colorinput-input">
+                    <span class="colorinput-color bg-danger"></span>
+                </label>
+                <label for="${datas[i]['id']}" class="ml-2">${datas[i]['name']}</label>
+            </div>
             `
         formData += " <input class='btn btn-warning' type='submit' value='Xác nhận'>"
         $(`#${formId}`).html(formData)
-
     })
 }
 
@@ -463,19 +462,21 @@ function toggleSearchRouteBtn() {
 }
 
 function showForm(id) {
-    swal({
-        title: "Xác nhận báo cáo",
-        text: "Bạn có chắc chắn muốn báo cáo chủ cửa hàng này không?!",
-        icon: "warning",
-        dangerMode: true,
-    }).then(confirmDelete => {
-        if (confirmDelete) {
-            for (let i = 0; i < $(`#${id} input`).length - 1; i++)
-                $(`#${id} input`)[i].checked = false
+    const formReport = document.getElementById(id);
+    if (formReport.hidden) {
 
-            const formReport = document.getElementById(id);
-            if (formReport.hidden) {
+        swal({
+            title: "Xác nhận báo cáo",
+            text: "Bạn có chắc chắn muốn báo cáo chủ cửa hàng này không?!",
+            icon: "warning",
+            dangerMode: true,
+        }).then(confirmDelete => {
+            if (confirmDelete) {
                 formReport.hidden = false
+                for (let i = 0; i < $(`#${id} input`).length - 1; i++)
+                    $(`#${id} input`)[i].checked = false
+
+
                 $(document).on('submit', `#${id}`, function (event) {
                     var reportResult = ''
                     for (let i = 0; i < $(`#${id} input`).length - 1; i++) {
@@ -490,10 +491,11 @@ function showForm(id) {
                     formReport.hidden = true
                     event.preventDefault()
                 })
-            } else
-                formReport.hidden = true
-        }
-    })
+
+            }
+        })
+    } else
+        formReport.hidden = true
 }
 
 $(document).ready(function () {

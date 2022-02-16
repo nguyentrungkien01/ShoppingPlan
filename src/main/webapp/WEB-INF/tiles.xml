@@ -98,6 +98,12 @@
         <put-attribute name="content" value="/WEB-INF/jsp/plan/route.jsp"/>
     </definition>
 
+    <!-- Rule -->
+    <definition name="rule" extends="base">
+        <put-attribute name="title" value="Quy định chung"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/account/rule.jsp"/>
+    </definition>
+
     <!-- Change password -->
     <definition name="change-password" extends="base">
         <put-attribute name="title" value="Đổi mật khẩu"/>
