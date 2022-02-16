@@ -166,7 +166,7 @@ function setProductListInfo(datas){
      for (let i =0; i<datas["productDetailList"].length; i++){
         var productImage = datas["productDetailList"][i]['productImage']
         if(productImage == null)
-            productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466396/product/default_ss6fj9.jpg"
+            productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1644934792/product/product-removebg-preview_czz9l8.png"
         var productInfos = datas["productDetailList"][i]
          var stallId = window.btoa(gStallId)
         row +=`

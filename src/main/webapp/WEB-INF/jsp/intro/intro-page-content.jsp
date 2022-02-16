@@ -7,12 +7,10 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5">
                         <div class="hc-banner-content">
-                            <h2>Kế hoạch mua sắm </h2>
-                            <h1>Tiêu đề</h1>
+                            <h2>Online shopping</h2>
+                            <h1>Quầy hàng trực tuyến</h1>
                             <div class="hc-banner-box">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus architecto
-                                    dolores, quisquam eos, maxime veniam hic cupiditate, sint nam doloribus voluptas
-                                    aliquid iusto nihil tempora reprehenderit rem deserunt nemo consequatur?
+                                <p>Nơi mọi người có thể tự tạo quầy hàng cho riêng mình để bày bán những sản phẩm mà mình có
                                 </p>
                             </div>
                             <a href="javascript:;" class="hc-btn">Tìm
@@ -49,12 +47,10 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="hc-banner-content">
-                            <h2>Kế hoạch mua sắm </h2>
-                            <h1>Tiêu đề</h1>
+                            <h2>C</h2>
+                            <h1>Lập kế hoạch mua sắm</h1>
                             <div class="hc-banner-box">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus architecto
-                                    dolores, quisquam eos, maxime veniam hic cupiditate, sint nam doloribus voluptas
-                                    aliquid iusto nihil tempora reprehenderit rem deserunt nemo consequatur?
+                                <p>Nơi bạn có thể lên kế hoạch đường đi đến những quầy hàng có bán những sản phẩm mà bạn mong muốn
                                 </p>
                             </div>
                             <a href="javascript:;" class="hc-btn">Tìm
