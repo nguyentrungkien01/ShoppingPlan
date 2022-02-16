@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-head-row">
-                            <div class="card-title">Các quầy hàng cá nhân (Số lượng: <span id="stallAmount"></span>)
+                            <div class="card-title">Các quầy hàng cá nhân (Số lượng: <span id="stallAmount"  class="text-success"></span>)
                             </div>
                             <div class="card-tools">
                                 <a href="<c:url value = '/stall/add' />" class="btn btn-xs btn-secondary btn-sm"

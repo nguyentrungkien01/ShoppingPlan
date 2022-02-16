@@ -31,13 +31,13 @@
                         <span class="user-icon"><i class="fas fa-user-nurse"></i></span>
                         <label>Tên đăng nhập</label>
                         <input type="text" name="username" class="form-control" placeholder="Nhập tài khoản"
-                            minlength="8" maxlength="20" value="username1" />
+                            minlength="8" maxlength="20"  />
                     </div>
                     <div class="position-relative form-group">
                         <span class="password-icon"> <i class="fas fa-key"></i></span>
                         <label>Mật khẩu</label>
                         <input class="form-control" placeholder="Password" type="password" name="password"
-                            minlength="6" maxlength="8" value="12345678">
+                            minlength="6" maxlength="8">
                         <div class="show-password">
                             <i class="far fa-eye"></i>
                         </div>

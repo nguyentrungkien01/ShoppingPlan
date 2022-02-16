@@ -149,14 +149,14 @@ function setSearchResult(datas) {
         var units = datas[i]['units']
         var productImage = product['productImage']
         if (productImage == null || productImage.length <= 0)
-            productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466396/product/default_ss6fj9.jpg"
+            productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1644934792/product/product-removebg-preview_czz9l8.png"
 
         searchResult += `
             <div class="row align-items-center" id="${product['productId']}">
                 <div class="col-12 col-md-8">
                     <div class="row align-items-center">
                         <div class="col">
-                         <div class="card-title"> <h1>${product['productName']}</h1></div>
+                         <div class="card-title text-success"> <h1>${product['productName']}</h1></div>
                           <p class="mb-1">Loại hàng: ${category['categoryName']}</p>
                           <p class="mb-1">Địa chỉ: ${location['locationName']}</p>
                         </div>
@@ -206,7 +206,7 @@ function addChoice(product, units, locationName, owner) {
         dataChoice = ''
     let productImage = product['productImage'];
     if (productImage == null || productImage.length <= 0)
-        productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466396/product/default_ss6fj9.jpg"
+        productImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1644934792/product/product-removebg-preview_czz9l8.png"
 
     //product units html
     let productUnits = '<ul class="list-group">';
@@ -262,7 +262,7 @@ function showDetail(detailId, productDetail) {
     var units = productDetail['units']
     let stallImage = stall['stallImage'];
     if (stallImage == null || stallImage.length <= 0)
-        stallImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466243/stall/default_upj3uc.jpg"
+        stallImage = "https://res.cloudinary.com/nguyentrungkien/image/upload/v1644934569/stall/default_arwh0s.jpg"
     var stallDescription = stall['stallDescription']
     if (stallDescription == null)
         stallDescription = "Chưa cập nhật"

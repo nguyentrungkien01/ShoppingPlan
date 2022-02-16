@@ -165,7 +165,7 @@ function setStallInfo(datas){
         if(description==null)
             description="Chưa cập nhật thông tin"
         if(image==null)
-            image ="https://res.cloudinary.com/nguyentrungkien/image/upload/v1643466243/stall/default_upj3uc.jpg"
+            image ="https://res.cloudinary.com/nguyentrungkien/image/upload/v1644934569/stall/default_arwh0s.jpg"
         var stallId = window.btoa(datas[i]['stallId'].toString())
          row +=`
                 <div class="col-lg-4 col-md-6 col-sm-12">
@@ -173,7 +173,7 @@ function setStallInfo(datas){
                     <div class="card-header">
                         <img class="card-img card-img-bdras" src=${image} alt="Card image">
                         <div class="card-title">
-                            <h4 class="mt-3">${datas[i]["stallName"]} <span
+                            <h4 class="mt-3 text-success">${datas[i]["stallName"]} <span
                                     class="badge badge-danger">${datas[i]["stallProductListAmount"]}</span></h4>
                         </div>
                     </div>
