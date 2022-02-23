@@ -1,5 +1,5 @@
 # ShoppingPlan
-Website hệ thống tự động kết nối mua bán bàng tiện lợi sử dụng ngôn ngữ Java, HTML, CSS, Javascript. Sử dụng Spring MVC, Hibernate, Cloudinary, MySql, MapBox
+Website hệ thống tự động kết nối mua bán bàng tiện lợi sử dụng ngôn ngữ `Java`, `HTML`, `CSS`, `Javascript`. Sử dụng `Spring MVC`, `Hibernate`, `Cloudinary`, `MySql`, `MapBox`
 
 # Mô tả
 Website là sản phẩm của đề tài nghiên cứu khoa học "Phát triển hệ thống tự động kết nối mua bán hàng tiện lợi"
